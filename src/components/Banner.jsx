@@ -1,4 +1,6 @@
 // import { ChevronLeft, ChevronRight } from "lucide-react";
+import { FaCircleChevronRight } from "react-icons/fa6";
+import { IoIosArrowDropleftCircle } from "react-icons/io";
 import { useEffect, useState } from "react";
 
 const images = [
@@ -14,7 +16,7 @@ const Banner = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrent((prev) => (prev + 1) % images.length);
-    }, 5000);
+    }, 4000);
     return () => clearInterval(interval);
   }, []);
 
@@ -48,12 +50,14 @@ const Banner = () => {
           className="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white p-2 md:p-3 rounded-full z-20"
         >
           {/* <ChevronLeft className="w-5 md:w-6 h-5 md:h-6" /> */}
+          <IoIosArrowDropleftCircle className="w-5 md:w-6 h-5 md:h-6" />
         </button>
         <button
           onClick={nextSlide}
           className="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 bg-white/20 hover:bg-white/40 text-white p-2 md:p-3 rounded-full z-20"
         >
           {/* <ChevronRight className="w-5 md:w-6 h-5 md:h-6" /> */}
+          <FaCircleChevronRight className="w-5 md:w-6 h-5 md:h-6" />
         </button>
 
         {/* Dots */}

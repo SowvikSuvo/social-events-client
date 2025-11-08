@@ -1,5 +1,5 @@
 import React, { use } from "react";
-import { Link, NavLink } from "react-router";
+
 import { IoLogoModelS } from "react-icons/io";
 import { GoHomeFill } from "react-icons/go";
 import { IoLogIn, IoLogOut } from "react-icons/io5";
@@ -8,8 +8,20 @@ import { LuRotate3D } from "react-icons/lu";
 import { ImBoxAdd } from "react-icons/im";
 import { AuthContext } from "../context/AuthContext";
 
+import { Link, NavLink } from "react-router";
+// import { Link, NavLink } from "react-router-dom";
+
 const Navbar = () => {
   const { user, signOutUser } = use(AuthContext);
+  const handleSignOut = () => {
+    signOutUser()
+      .then((result) => {
+        console.log(result.user);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <div className="navbar py-0 min-h-0 z-1 shadow-sm rounded-full glass-card max-w-7xl">
       <div className="navbar-start">
@@ -32,8 +44,8 @@ const Navbar = () => {
             </svg>
           </div>
           <ul
-            tabIndex="-1"
-            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+            tabIndex={0}
+            className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[9999] mt-1 w-52 p-2 shadow"
           >
             <li>
               <NavLink to={"/"}>
@@ -42,9 +54,7 @@ const Navbar = () => {
               </NavLink>
             </li>
             <li>
-              <NavLink to={"/all-models"}>
-                <IoLogoModelS /> All Models
-              </NavLink>
+              <NavLink to={"/upcoming-event"}>Upcoming Events</NavLink>
             </li>
           </ul>
         </div>
@@ -60,74 +70,82 @@ const Navbar = () => {
               Home
             </NavLink>
           </li>
-          {/* <li>
-            <NavLink to={"/all-models"}>
-              <IoLogoModelS /> All Models
-            </NavLink>
-          </li> */}
+
           <li>
-            <NavLink to={"/add-model"}>Upcoming Events</NavLink>
+            <NavLink to={"/upcoming-event"}>Upcoming Events</NavLink>
           </li>
-          {/* 
-          <li>
-            <NavLink to={"/profile"}>
-              <FaUser /> Profile
-            </NavLink>
-          </li> */}
         </ul>
       </div>
       <div className="navbar-end gap-3">
         {user ? (
-          <div className="dropdown dropdown-end z-50">
+          <div className="dropdown dropdown-end">
             <div
               tabIndex={0}
               role="button"
               className="btn btn-ghost btn-circle avatar"
             >
-              <div className="w-9 border-2 border-gray-300 rounded-full">
+              <div className="w-9 rounded-full border-2 border-gray-300">
                 <img
-                  alt="Tailwind CSS Navbar component"
-                  referrerPolicy="no-referrer"
+                  alt="User avatar"
                   src={
-                    // user.photoURL ||
+                    user?.photoURL ||
                     "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
                   }
                 />
               </div>
             </div>
+
             <ul
-              tabIndex="-1"
-              className="menu  menu-sm dropdown-content bg-base-100 rounded-box z-50 mt-3 w-52 p-2 shadow"
+              tabIndex={0}
+              className="menu menu-sm dropdown-content bg-base-100 rounded-box z-9999 mt-1 w-52 p-2 shadow"
             >
-              <div className=" pb-3 border-b border-b-gray-200">
-                <li className="text-sm font-bold">{""}</li>
-                <li className="text-xs">{""}</li>
-              </div>
-              <li className="mt-3">
-                <Link to={"/profile"}>Create Event</Link>
+              <li className="pb-3 border-b border-b-gray-200 text-center">
+                <span className="text-sm font-bold">{user.displayName}</span>
+                <span className="text-xs">{user.email}</span>
+              </li>
+
+              <li>
+                <Link
+                  to="/create-event"
+                  className="btn btn-xs w-full bg-gradient-to-r from-pink-500 to-blue-500 text-white"
+                >
+                  Create Event
+                </Link>
               </li>
               <li>
-                <Link> Manage Events</Link>
+                <Link
+                  to="/manage-event"
+                  className="btn btn-xs w-full bg-gradient-to-r from-pink-500 to-blue-500 text-white"
+                >
+                  Manage Events
+                </Link>
               </li>
               <li>
-                <Link> Joined Events</Link>
+                <Link
+                  to="/join-event"
+                  className="btn btn-xs w-full bg-gradient-to-r from-pink-500 to-blue-500 text-white"
+                >
+                  Joined Events
+                </Link>
               </li>
               <li>
                 <button
-                  onClick={""}
-                  className="btn btn-xs text-left bg-linear-to-r from-pink-500 to-red-500 text-white"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleSignOut();
+                  }}
+                  className="btn btn-xs w-full bg-gradient-to-r from-pink-500 to-red-500 text-white"
                 >
-                  <IoLogOut /> Logout
+                  Logout
                 </button>
               </li>
             </ul>
           </div>
         ) : (
           <Link
-            to={"/login"}
-            className="btn rounded-full border-gray-300  btn-sm bg-linear-to-r from-[#6BB42F] to-[#71f505] text-white"
+            to="/auth/login"
+            className="btn rounded-full border-gray-300 btn-sm bg-gradient-to-r from-pink-500 to-blue-600 text-white"
           >
-            {" "}
             <IoLogIn /> Login
           </Link>
         )}

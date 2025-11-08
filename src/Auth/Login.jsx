@@ -1,16 +1,41 @@
-import React from "react";
-import { Link } from "react-router";
+import React, { use } from "react";
+import { Link, useLocation, useNavigate } from "react-router";
 import { motion } from "framer-motion";
 import { FcGoogle } from "react-icons/fc";
+import { AuthContext } from "../context/AuthContext";
 
 const Login = () => {
+  const { signInUser, signInWithGoogle } = use(AuthContext);
+
+  const location = useLocation();
+  const navigate = useNavigate();
+  console.log(location);
+
   const handleLogin = (e) => {
     e.preventDefault();
-    // TODO: Add Firebase login logic
+    const email = e.target.email?.value;
+    const password = e.target.password?.value;
+    console.log(email, password);
+    signInUser(email, password)
+      .then((result) => {
+        console.log(result.user);
+        e.target.reset();
+        navigate(location.state || "/");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const handleGoogleLogin = () => {
-    // TODO: Add Google login logic
+    signInWithGoogle()
+      .then((result) => {
+        console.log(result.user);
+        navigate(location?.state || "/");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   return (
@@ -83,7 +108,7 @@ const Login = () => {
         <p className="text-center text-sm mt-6 text-gray-500 dark:text-gray-400">
           Don’t have an account?{" "}
           <Link
-            to="/register"
+            to="/auth/register"
             className="text-pink-500 font-semibold hover:underline"
           >
             Register now
