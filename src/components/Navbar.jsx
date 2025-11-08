@@ -104,15 +104,13 @@ const Navbar = () => {
                 <li className="text-xs">{""}</li>
               </div>
               <li className="mt-3">
-                <Link to={"/profile"}>
-                  <FaUser /> Profile
-                </Link>
+                <Link to={"/profile"}>Create Event</Link>
               </li>
               <li>
-                <a>
-                  {" "}
-                  <FaGear /> Settings
-                </a>
+                <Link> Manage Events</Link>
+              </li>
+              <li>
+                <Link> Joined Events</Link>
               </li>
               <li>
                 <button
@@ -126,7 +124,7 @@ const Navbar = () => {
           </div>
         ) : (
           <Link
-            to={"/auth/login"}
+            to={"/login"}
             className="btn rounded-full border-gray-300  btn-sm bg-linear-to-r from-[#6BB42F] to-[#71f505] text-white"
           >
             {" "}

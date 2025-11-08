@@ -11,9 +11,12 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.17",
+    "animate-presence": "^0.2.1",
     "axios": "^1.13.2",
+    "date-fns": "^4.1.0",
     "firebase": "^12.5.0",
     "framer-motion": "^12.23.24",
+    "lucide": "^0.553.0",
     "react": "^19.1.1",
     "react-datepicker": "^8.8.0",
     "react-dom": "^19.1.1",
