@@ -7,16 +7,16 @@ const EventsDetails = () => {
   const data = useLoaderData();
   console.log(data);
   return (
-    <div className="min-h-screen bg-gradient-to-r from-purple-100 to-pink-100 flex items-center justify-center p-4">
-      <div className="bg-white shadow-xl rounded-2xl max-w-3xl w-full overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-r from-purple-100 to-pink-100 flex items-center justify-center p-4 rounded-2xl">
+      <div className="bg-white shadow-xl rounded-2xl max-w-3xl w-full overflow-hidden mb-10">
         <img
           src={data.thumbnail}
           alt={"e.title"}
           className="w-full h-64 object-cover"
         />
 
-        <div className="p-6">
-          <h1 className="text-3xl font-bold text-purple-600 mb-2">
+        <div className="p-6 ">
+          <h1 className="text-3xl font-bold text-purple-600 mb-2 text-center">
             {data.title}
           </h1>
 

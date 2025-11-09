@@ -11,7 +11,7 @@ const UpcomingEvents = () => {
   return (
     <div className="max-w-7xl mx-auto px-4 py-10">
       <h2 className="text-3xl font-bold text-center mb-8">
-        Upcoming Events{data.length}
+        Upcoming Events: <span className="text-secondary">{data.length}</span>
       </h2>
 
       {data.length === 0 ? (

@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router";
 import { motion } from "framer-motion";
 import { FcGoogle } from "react-icons/fc";
 import { AuthContext } from "../context/AuthContext";
+import Swal from "sweetalert2";
 
 const Login = () => {
   const { signInUser, signInWithGoogle } = use(AuthContext);
@@ -19,6 +20,13 @@ const Login = () => {
     signInUser(email, password)
       .then((result) => {
         console.log(result.user);
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "You have been login Successfully!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
         e.target.reset();
         navigate(`${location.state ? location.state : "/"}`);
       })
@@ -31,6 +39,13 @@ const Login = () => {
     signInWithGoogle()
       .then((result) => {
         console.log(result.user);
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Login with google Successfully!",
+          showConfirmButton: false,
+          timer: 1500,
+        });
         navigate(`${location.state ? location.state : "/"}`);
       })
       .catch((error) => {
