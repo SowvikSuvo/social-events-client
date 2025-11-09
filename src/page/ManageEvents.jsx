@@ -1,13 +1,39 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-import { Link, useLoaderData, useNavigate } from "react-router";
+import { Link, useNavigate } from "react-router";
 import Swal from "sweetalert2";
+import { useEffect } from "react";
+import { use } from "react";
+import { AuthContext } from "../context/AuthContext";
+import { useState } from "react";
 
 const ManageEvents = () => {
+  const { user } = use(AuthContext);
+  const [manage, setManage] = useState([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
-  const data = useLoaderData();
-  console.log(data);
+
+  useEffect(() => {
+    fetch(`http://localhost:3000/manage-event?email=${user.email}`, {
+      headers: {
+        authorization: `Bearer ${user.accessToken}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setManage(data);
+        setLoading(false);
+      });
+  }, []);
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center">
+        <span className="loading loading-spinner text-warning"></span>
+      </div>
+    );
+  }
 
   const handleDeleteEvent = (_id) => {
     Swal.fire({
@@ -20,7 +46,7 @@ const ManageEvents = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/events/${_id}`, {
+        fetch(`http://localhost:3000/manage-event/${_id}?email=${user.email}`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
@@ -47,12 +73,12 @@ const ManageEvents = () => {
     <div className=" bg-base-200 flex items-center justify-center py-10 px-4">
       <div className="w-full max-w-6xl bg-base-100 shadow-xl rounded-xl p-6">
         <h2 className="text-3xl font-bold text-center mb-6">
-          All Events: <span className="text-primary">{data.length}</span>
+          All Events: <span className="text-primary">{manage.length}</span>
         </h2>
 
-        <div className="overflow-x-auto">
-          <table className="table w-full">
-            <thead className="bg-gradient-to-r from-primary to-secondary text-white">
+        <div className="overflow-x-auto rounded-lg">
+          <table className="table w-full ">
+            <thead className="bg-gradient-to-r from-primary to-secondary  text-white">
               <tr>
                 <th>SL No</th>
                 <th>Image</th>
@@ -64,7 +90,7 @@ const ManageEvents = () => {
               </tr>
             </thead>
             <tbody>
-              {data.map((event, index) => (
+              {manage.map((event, index) => (
                 <motion.tr
                   key={event._id}
                   initial={{ opacity: 0, y: 20 }}

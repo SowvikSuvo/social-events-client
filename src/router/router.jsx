@@ -31,8 +31,6 @@ export const router = createBrowserRouter([
             <EventsDetails></EventsDetails>
           </PrivateRoute>
         ),
-        loader: ({ params }) =>
-          fetch(`http://localhost:3000/events/${params.id}`),
       },
       {
         path: "/auth/login",
@@ -65,7 +63,6 @@ export const router = createBrowserRouter([
             <ManageEvents></ManageEvents>
           </PrivateRoute>
         ),
-        loader: () => fetch(`http://localhost:3000/events`),
       },
       {
         path: "/update-event/:id",

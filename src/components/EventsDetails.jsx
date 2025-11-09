@@ -1,12 +1,32 @@
 import { Tag } from "lucide-react";
 import React from "react";
+import { useState } from "react";
+import { use } from "react";
+import { useEffect } from "react";
 import { FaCalendarAlt, FaMapMarkerAlt, FaUser } from "react-icons/fa";
-import { useLoaderData } from "react-router";
+import { useParams } from "react-router";
 import Swal from "sweetalert2";
+import { AuthContext } from "../context/AuthContext";
 
 const EventsDetails = () => {
-  const data = useLoaderData();
-  console.log(data);
+  const { id } = useParams();
+  const [data, setData] = useState({});
+  const [loading, setLoading] = useState(true);
+  const { user } = use(AuthContext);
+
+  useEffect(() => {
+    fetch(`http://localhost:3000/events/${id}`, {
+      headers: {
+        authorization: `Bearer ${user.accessToken}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setData(data);
+        setLoading(false);
+      });
+  }, [id, user]);
 
   const handleJoined = () => {
     fetch(`http://localhost:3000/joined`, {
@@ -29,6 +49,14 @@ const EventsDetails = () => {
         console.log(err);
       });
   };
+
+  if (loading) {
+    return (
+      <div className="flex justify-center items-center">
+        <span className=" loading loading-spinner text-warning"></span>
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-r from-purple-100 to-pink-100 flex items-center justify-center p-4 rounded-2xl">

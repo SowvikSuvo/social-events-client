@@ -6,8 +6,6 @@ const UpcomingEvents = () => {
   const data = useLoaderData();
   console.log(data);
 
-  // const today = new Date();
-  // const upcomingEvents = data.filter((event) => new Date(event-date) >= today);
   return (
     <div className="max-w-7xl mx-auto px-4 py-10">
       <h2 className="text-3xl font-bold text-center mb-8">
@@ -34,7 +32,7 @@ const UpcomingEvents = () => {
                   {event.title}
                 </h3>
                 <p className="flex items-center text-gray-600 text-sm mb-2">
-                  {event.description}
+                  {event.description?.slice(0, 80)}...
                 </p>
 
                 <div className="flex items-center text-gray-600 text-sm mb-2">

@@ -62,11 +62,11 @@ const UpdateEvent = () => {
       .then((data) => {
         console.log(data);
         setTimeout(() => {
-          Swal.fire({
-            title: "Updated!",
-            text: "Event Updated Successfully!",
-            icon: "success",
-          });
+          // Swal.fire({
+          //   title: "Updated!",
+          //   text: "Event Updated Successfully!",
+          //   icon: "success",
+          // });
           navigate("/upcoming-events");
         }, 1000);
       })
