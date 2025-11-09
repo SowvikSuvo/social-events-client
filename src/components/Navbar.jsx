@@ -107,7 +107,7 @@ const Navbar = () => {
               <li>
                 <Link
                   to="/create-event"
-                  className="btn btn-xs w-full bg-gradient-to-r from-pink-500 to-blue-500 text-white"
+                  className="btn btn-xs w-full bg-gradient-to-r from-pink-500 to-blue-500 text-white hover:opacity-70 transition-all duration-200"
                 >
                   Create Event
                 </Link>
@@ -115,7 +115,7 @@ const Navbar = () => {
               <li>
                 <Link
                   to="/manage-event"
-                  className="btn btn-xs w-full bg-gradient-to-r from-pink-500 to-blue-500 text-white"
+                  className="btn btn-xs w-full bg-gradient-to-r from-pink-500 to-blue-500 text-white hover:opacity-70 transition-all duration-200"
                 >
                   Manage Events
                 </Link>
@@ -123,7 +123,7 @@ const Navbar = () => {
               <li>
                 <Link
                   to="/join-event"
-                  className="btn btn-xs w-full bg-gradient-to-r from-pink-500 to-blue-500 text-white"
+                  className="btn btn-xs w-full bg-gradient-to-r from-pink-500 to-blue-500 text-white hover:opacity-70 transition-all duration-200"
                 >
                   Joined Events
                 </Link>

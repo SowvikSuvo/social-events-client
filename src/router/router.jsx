@@ -20,6 +20,7 @@ export const router = createBrowserRouter([
       {
         path: "/upcoming-events",
         element: <UpcomingEvents></UpcomingEvents>,
+        loader: () => fetch("http://localhost:3000/events"),
       },
       {
         path: "/auth/login",
