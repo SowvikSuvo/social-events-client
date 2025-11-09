@@ -2,10 +2,34 @@ import { Tag } from "lucide-react";
 import React from "react";
 import { FaCalendarAlt, FaMapMarkerAlt, FaUser } from "react-icons/fa";
 import { useLoaderData } from "react-router";
+import Swal from "sweetalert2";
 
 const EventsDetails = () => {
   const data = useLoaderData();
   console.log(data);
+
+  const handleJoined = () => {
+    fetch(`http://localhost:3000/joined`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        Swal.fire({
+          title: "Successfully join event!",
+          text: "Welcome to our event!",
+          icon: "success",
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-r from-purple-100 to-pink-100 flex items-center justify-center p-4 rounded-2xl">
       <div className="bg-white shadow-xl rounded-2xl max-w-3xl w-full overflow-hidden mb-10">
@@ -45,8 +69,8 @@ const EventsDetails = () => {
           <p className="text-gray-700 mb-6">{data.description}</p>
 
           <button
+            onClick={handleJoined}
             className="w-full bg-purple-600 hover:bg-purple-700 text-white font-semibold py-3 rounded-xl transition-all duration-300 shadow-lg"
-            onClick={() => alert("You joined the event! 🎉")}
           >
             Join Event
           </button>

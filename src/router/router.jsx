@@ -51,7 +51,7 @@ export const router = createBrowserRouter([
         ),
       },
       {
-        path: "/join-event",
+        path: "/joined-event",
         element: (
           <PrivateRoute>
             <JoinedEvent></JoinedEvent>

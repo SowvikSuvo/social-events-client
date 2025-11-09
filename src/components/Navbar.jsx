@@ -125,7 +125,7 @@ const Navbar = () => {
               </li>
               <li>
                 <Link
-                  to="/join-event"
+                  to="/joined-event"
                   className="btn btn-xs w-full bg-gradient-to-r from-pink-500 to-blue-500 text-white hover:opacity-70 transition-all duration-200"
                 >
                   Joined Events
