@@ -1,5 +1,5 @@
 import React, { use } from "react";
-
+import { FaUserCircle } from "react-icons/fa";
 import { IoLogoModelS } from "react-icons/io";
 import { GoHomeFill } from "react-icons/go";
 import { IoLogIn, IoLogOut } from "react-icons/io5";
@@ -13,6 +13,7 @@ import { Link, NavLink } from "react-router";
 
 const Navbar = () => {
   const { user, signOutUser } = use(AuthContext);
+  console.log(user);
   const handleSignOut = () => {
     signOutUser()
       .then((result) => {
@@ -88,8 +89,10 @@ const Navbar = () => {
                 <img
                   alt="User avatar"
                   src={
-                    user?.photoURL ||
-                    "https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                    user?.photoURL || (
+                      //
+                      <FaUserCircle />
+                    )
                   }
                 />
               </div>

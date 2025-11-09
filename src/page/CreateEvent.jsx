@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
 import { use } from "react";
 import { AuthContext } from "../context/AuthContext";
+import { format } from "date-fns";
 
 const CreateEvent = () => {
   const { user } = use(AuthContext);
@@ -34,18 +35,34 @@ const CreateEvent = () => {
       toast.error("You must be logged in to create an event.");
       return;
     }
+    const formattedDate = format(formData.date, "dd-MM-yyyy");
 
     const newEvent = {
       ...formData,
-      date: formData.date?.toISOString(),
+      date: formattedDate,
       createdBy: user.email,
     };
     console.log(newEvent);
     // Simulate successful API call
-    setTimeout(() => {
-      toast.success("🎉 Event created successfully!");
-      navigate("/upcoming-events");
-    }, 1000);
+    fetch("http://localhost:3000/events", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newEvent),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        setTimeout(() => {
+          toast.success("🎉 Event created successfully!");
+          navigate("/upcoming-events");
+        }, 1000);
+      })
+      .catch((err) => {
+        console.log(err);
+        toast.error("Failed to create event. Please check your inputs");
+      });
   };
 
   return (
@@ -55,7 +72,7 @@ const CreateEvent = () => {
           🌍 Create a New Event
         </h2>
 
-        <form onSubmit={handleSubmit} className="space-y-5">
+        <form onSubmit={handleSubmit} className="space-y-3">
           {/* Title */}
           <div>
             <label className="block font-medium text-gray-700 mb-1">
@@ -86,6 +103,22 @@ const CreateEvent = () => {
               required
               className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500"
             />
+          </div>
+          <div>
+            <label className="block font-medium text-gray-700 mb-1">
+              Event created By
+            </label>
+            <div>
+              <input
+                type="text"
+                name="email"
+                placeholder="Enter event title"
+                value={user.email}
+                onChange={handleChange}
+                required
+                className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500"
+              />
+            </div>
           </div>
 
           {/* Event Type */}
@@ -169,6 +202,7 @@ const CreateEvent = () => {
                 selected={formData.date}
                 onChange={(date) => setFormData({ ...formData, date })}
                 minDate={new Date()}
+                dateFormat="dd-MM-yyyy"
                 placeholderText="Select event date"
                 className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500"
               />

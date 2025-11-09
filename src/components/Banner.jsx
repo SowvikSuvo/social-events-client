@@ -2,6 +2,7 @@
 import { FaCircleChevronRight } from "react-icons/fa6";
 import { IoIosArrowDropleftCircle } from "react-icons/io";
 import { useEffect, useState } from "react";
+import { Link } from "react-router";
 
 const images = [
   "https://images.unsplash.com/photo-1569292567777-e5d61a759322?ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=1167",
@@ -82,9 +83,12 @@ const Banner = () => {
             Create, join, and track community-driven social service events in
             your area.
           </p>
-          <button className="btn bg-gradient-to-r from-pink-500 to-blue-500 text-white rounded-full px-6 py-3 shadow-lg hover:scale-105 transition-transform">
+          <Link
+            to="/upcoming-events"
+            className="btn bg-gradient-to-r from-pink-500 to-blue-500 text-white rounded-full px-6 py-3 shadow-lg hover:scale-105 transition-transform"
+          >
             Explore Events
-          </button>
+          </Link>
         </div>
       </div>
     </section>

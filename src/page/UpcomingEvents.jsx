@@ -1,3 +1,4 @@
+import { CalendarDays, MapPin, Tag } from "lucide-react";
 import React from "react";
 import { Link, useLoaderData } from "react-router";
 
@@ -23,7 +24,7 @@ const UpcomingEvents = () => {
               className="group bg-white shadow-lg rounded-2xl overflow-hidden transition-transform transform hover:-translate-y-2 hover:shadow-2xl border border-gray-100"
             >
               <img
-                src={event.thumbnailURL}
+                src={event.thumbnail}
                 alt={event.title}
                 className="h-48 w-full object-cover group-hover:scale-105 transition-transform duration-300"
               />
@@ -37,26 +38,28 @@ const UpcomingEvents = () => {
                 </p>
 
                 <div className="flex items-center text-gray-600 text-sm mb-2">
-                  {/* <MapPin size={16} className="mr-1 text-pink-500" /> */}
+                  <MapPin size={16} className="mr-1 text-pink-500" />
                   {event.location}
                 </div>
 
-                <div className="flex items-center text-gray-600 text-sm mb-2">
-                  {/* <Tag size={16} className="mr-1 text-blue-500" /> */}
-                  {event.eventType}
+                <div className="flex items-center text-gray-600 text-sm mb-2 bg-">
+                  <Tag size={16} className="mr-1 text-blue-500" />
+                  <span className="bg-pink-100 rounded-full px-2 py-1">
+                    {event.eventType}
+                  </span>
                 </div>
 
                 <div className="flex items-center text-gray-600 text-sm mb-4">
-                  {/* <CalendarDays size={16} className="mr-1 text-green-500" /> */}
-                  {/* {new Date(event-date).toLocaleDateString()} */}
-                  {event.event_date}
+                  <CalendarDays size={16} className="mr-1 text-green-500" />
+
+                  {event.date}
                 </div>
 
                 <Link
-                  to={`/events/${event._id}`}
+                  to={`/events-details/${event._id}`}
                   className="block text-center bg-gradient-to-r from-pink-500 to-purple-600 text-white py-2 rounded-xl font-medium hover:opacity-90 transition duration-200"
                 >
-                  View Event
+                  View Event Details
                 </Link>
               </div>
             </div>
