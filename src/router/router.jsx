@@ -6,6 +6,8 @@ import Register from "../Auth/Register";
 import CreateEvent from "../page/CreateEvent";
 import JoinedEvent from "../page/JoinedEvent";
 import ManageEvents from "../page/ManageEvents";
+import UpcomingEvents from "../page/UpcomingEvents";
+import PrivateRoute from "./PrivateRouter";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -14,6 +16,10 @@ export const router = createBrowserRouter([
       {
         index: true,
         element: <Home></Home>,
+      },
+      {
+        path: "/upcoming-events",
+        element: <UpcomingEvents></UpcomingEvents>,
       },
       {
         path: "/auth/login",
@@ -25,15 +31,27 @@ export const router = createBrowserRouter([
       },
       {
         path: "/create-event",
-        element: <CreateEvent></CreateEvent>,
+        element: (
+          <PrivateRoute>
+            <CreateEvent></CreateEvent>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/join-event",
-        element: <JoinedEvent></JoinedEvent>,
+        element: (
+          <PrivateRoute>
+            <JoinedEvent></JoinedEvent>
+          </PrivateRoute>
+        ),
       },
       {
         path: "/manage-event",
-        element: <ManageEvents></ManageEvents>,
+        element: (
+          <PrivateRoute>
+            <ManageEvents></ManageEvents>
+          </PrivateRoute>
+        ),
       },
     ],
   },

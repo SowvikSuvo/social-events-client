@@ -23,7 +23,7 @@ const Navbar = () => {
       });
   };
   return (
-    <div className="navbar py-0 min-h-0 z-1 shadow-sm rounded-full glass-card max-w-7xl">
+    <div className="navbar relative py-0 min-h-0 z-50 shadow-sm rounded-full glass-card max-w-7xl">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost md:hidden">
@@ -72,7 +72,7 @@ const Navbar = () => {
           </li>
 
           <li>
-            <NavLink to={"/upcoming-event"}>Upcoming Events</NavLink>
+            <NavLink to={"/upcoming-events"}>Upcoming Events</NavLink>
           </li>
         </ul>
       </div>
@@ -96,7 +96,7 @@ const Navbar = () => {
             </div>
 
             <ul
-              tabIndex={0}
+              tabIndex="-1"
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-9999 mt-1 w-52 p-2 shadow"
             >
               <li className="pb-3 border-b border-b-gray-200 text-center">

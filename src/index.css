@@ -8,9 +8,9 @@
 @plugin "daisyui";
 
 .navbar .active {
-  color: rgb(20, 83, 220);
+  color: rgb(255, 255, 255);
   font-weight: bold;
   border: 1px solid #cac8c8ff;
   border-radius: 20px;
-  background: rgb(35, 206, 13);
+  background: rgb(243, 2, 183);
 }

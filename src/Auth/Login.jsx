@@ -20,7 +20,7 @@ const Login = () => {
       .then((result) => {
         console.log(result.user);
         e.target.reset();
-        navigate(location.state || "/");
+        navigate(`${location.state ? location.state : "/"}`);
       })
       .catch((error) => {
         console.log(error);
@@ -31,7 +31,7 @@ const Login = () => {
     signInWithGoogle()
       .then((result) => {
         console.log(result.user);
-        navigate(location?.state || "/");
+        navigate(`${location.state ? location.state : "/"}`);
       })
       .catch((error) => {
         console.log(error);

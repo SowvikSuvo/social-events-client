@@ -1,11 +1,17 @@
 import React, { useState } from "react";
-import { Link } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { motion } from "framer-motion";
 import { FcGoogle } from "react-icons/fc";
+import { toast } from "react-toastify";
 
 import Swal from "sweetalert2";
+import { use } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 const Register = () => {
+  const { signInWithGoogle, createUser } = use(AuthContext);
+  const location = useLocation();
+  const navigate = useNavigate();
   const [error, setError] = useState("");
 
   const handleRegister = (e) => {
@@ -18,32 +24,48 @@ const Register = () => {
     console.log(name, email, photo, password);
 
     // Password validation
-    if (!/(?=.*[A-Z])/.test(password)) {
-      setError("Password must contain at least one uppercase letter");
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[^A-Za-z0-9]).{6,}$/;
+    if (!regex.test(password)) {
+      setError("Please provide valid password");
+      toast.error(
+        "❌ Password must be at least 6 characters long, include at least one uppercase letter, one lowercase letter, and one special character."
+      );
       return;
-    }
-    if (!/(?=.*[a-z])/.test(password)) {
-      setError("Password must contain at least one lowercase letter");
-      return;
-    }
-    if (password.length < 6) {
-      setError("Password must be at least 6 characters long");
-      return;
+    } else {
+      setError("");
     }
 
-    setError("");
-    // TODO: Firebase Register Logic Here
+    createUser(email, password)
+      .then((result) => {
+        console.log(result.user);
 
-    Swal.fire({
-      title: "Registration Successful!",
-      text: "Welcome to Social Events Platform 🎉",
-      icon: "success",
-      confirmButtonColor: "#f43f5e",
-    });
-
-    form.reset();
+        navigate(`${location.state ? location.state : "/"}`);
+        Swal.fire({
+          title: "Registration Successful!",
+          text: "Welcome to Social Events Platform 🎉",
+          icon: "success",
+          confirmButtonColor: "#f43f5e",
+        });
+        form.reset();
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error(
+          "It looks like you already have an account! Try logging in, or click 'Forgot Password?' if you need help accessing it."
+        );
+      });
   };
-  const handleGoogleLogin = () => {};
+
+  const handleGoogleLogin = () => {
+    signInWithGoogle()
+      .then((result) => {
+        console.log(result.user);
+        navigate(location?.state || "/");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-pink-50 via-white to-blue-50 dark:from-gray-900 dark:to-gray-800 px-4">
@@ -98,7 +120,7 @@ const Register = () => {
             <input
               type="text"
               name="photo"
-              placeholder="https://example.com/photo.jpg"
+              placeholder="https://your photo Url.com/photo.jpg"
               className="input input-bordered w-full rounded-xl dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200"
             />
           </div>
