@@ -9,7 +9,7 @@ const ManageEvents = () => {
   const data = useLoaderData();
   console.log(data);
 
-  const handleDeleteEvent = () => {
+  const handleDeleteEvent = (_id) => {
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -20,7 +20,7 @@ const ManageEvents = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/events/${data._id}`, {
+        fetch(`http://localhost:3000/events/${_id}`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",

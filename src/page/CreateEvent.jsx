@@ -9,6 +9,7 @@ import { useNavigate } from "react-router";
 import { use } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { format } from "date-fns";
+import Swal from "sweetalert2";
 
 const CreateEvent = () => {
   const { user } = use(AuthContext);
@@ -55,7 +56,12 @@ const CreateEvent = () => {
       .then((data) => {
         console.log(data);
         setTimeout(() => {
-          toast.success("🎉 Event created successfully!");
+          Swal.fire({
+            title: "Created!",
+            text: "Event created successfully!",
+            icon: "success",
+          });
+
           navigate("/upcoming-events");
         }, 1000);
       })
