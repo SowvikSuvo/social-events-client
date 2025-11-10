@@ -55,8 +55,8 @@ const Features = () => {
   ];
 
   return (
-    <section className="py-20 px-6 md:px-20 bg-gradient-to-b from-pink-200 via-white to-blue-200 rounded-3xl">
-      <h2 className="text-3xl md:text-4xl font-extrabold text-center text-gray-800 mb-12">
+    <section className="py-20 px-6 md:px-20  rounded-3xl">
+      <h2 className="text-3xl md:text-4xl font-extrabold text-center  mb-12">
         Platform Features
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

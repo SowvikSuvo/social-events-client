@@ -7,13 +7,32 @@ const UpcomingEvents = () => {
   const data = useLoaderData();
   const [events, setEvents] = useState(data);
   const [loading, setLoading] = useState(false);
+  const [eventType, setEventType] = useState("All");
+
+  const handleFilter = (e) => {
+    const selectedType = e.target.value;
+    setEventType(selectedType);
+    setLoading(true);
+
+    fetch(
+      `https://social-events-server-nine.vercel.app/filter?type=${selectedType}`
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        setEvents(data);
+        setLoading(false);
+      })
+      .catch(() => setLoading(false));
+  };
 
   const handleSearch = (e) => {
     e.preventDefault();
     const search_text = e.target.search.value;
     console.log(search_text);
 
-    fetch(`http://localhost:3000/search?search=${search_text}`)
+    fetch(
+      `https://social-events-server-nine.vercel.app/search?search=${search_text}`
+    )
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
@@ -61,13 +80,44 @@ const UpcomingEvents = () => {
               </label>
               <button
                 type="submit"
-                className="btn btn-secondary py-1  rounded-full"
+                className="btn text-xs   btn-secondary px-2  rounded-full"
               >
                 {loading ? "Searching....." : "Search"}
               </button>
             </form>
           </div>
-          <div>filter sort</div>
+
+          <div className="flex justify-end mb-2">
+            <select
+              value={eventType}
+              onChange={handleFilter}
+              className="select select-bordered rounded-full w-60  px-4 py-2"
+            >
+              <option value="All">All</option>
+              <option value="Donation">Donation</option>
+              <option value="Cleanup">Cleanup</option>
+              <option value="Plantation">Plantation</option>
+              <option value="Education">Education</option>
+              <option value="Food Distribution">Food Distribution</option>
+              <option value="Shelter Support">Shelter Support</option>
+              <option value="Blood Donation">Blood Donation</option>
+              <option value="Fundraising">Fundraising</option>
+              <option value="Plastic-Free Campaign">
+                Plastic-Free Campaign
+              </option>
+              <option value="River or Lake Restoration">
+                River or Lake Restoration
+              </option>
+              <option value="Recycling Workshop">Recycling Workshop</option>
+              <option value="Animal Care Drive">Animal Care Drive</option>
+              <option value="Winter Blanket Donation">
+                Winter Blanket Donation
+              </option>
+              <option value="Free Medical Checkup Camp">
+                Free Medical Checkup Camp
+              </option>
+            </select>
+          </div>
         </div>
       </h2>
 
@@ -78,7 +128,7 @@ const UpcomingEvents = () => {
           {events.map((event) => (
             <div
               key={event._id}
-              className="group bg-white shadow-lg rounded-2xl overflow-hidden transition-transform transform hover:-translate-y-2 hover:shadow-2xl border border-gray-100"
+              className="group shadow-lg rounded-2xl overflow-hidden transition-transform transform hover:-translate-y-2 hover:shadow-2xl border border-gray-100"
             >
               <img
                 src={event.thumbnail}
@@ -90,23 +140,23 @@ const UpcomingEvents = () => {
                 <h3 className="text-xl font-semibold mb-2 group-hover:text-pink-600">
                   {event.title}
                 </h3>
-                <p className="flex items-center text-gray-600 text-sm mb-2">
+                <p className="flex items-center   text-sm mb-2">
                   {event.description?.slice(0, 80)}...
                 </p>
 
-                <div className="flex items-center text-gray-600 text-sm mb-2">
+                <div className="flex items-center text-pink-500 text-sm mb-2">
                   <MapPin size={16} className="mr-1 text-pink-500" />
                   {event.location}
                 </div>
 
                 <div className="flex items-center text-gray-600 text-sm mb-2 bg-">
                   <Tag size={16} className="mr-1 text-blue-500" />
-                  <span className="bg-pink-100 rounded-full px-2 py-1">
+                  <span className="bg-blue-200 shadow rounded-full px-2 py-1">
                     {event.eventType}
                   </span>
                 </div>
 
-                <div className="flex items-center text-gray-600 text-sm mb-4">
+                <div className="flex items-center  text-sm mb-4">
                   <CalendarDays size={16} className="mr-1 text-green-500" />
 
                   {event.date}

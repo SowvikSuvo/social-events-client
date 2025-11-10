@@ -11,12 +11,15 @@ const JoinedEvent = () => {
   console.log(event);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/joined-event?email=${user?.email}`, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    })
+    fetch(
+      `https://social-events-server-nine.vercel.app/joined-event?email=${user?.email}`,
+      {
+        method: "GET",
+        headers: {
+          authorization: `Bearer ${user.accessToken}`,
+        },
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         setEvent(data);
@@ -36,16 +39,18 @@ const JoinedEvent = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/joined-event/${_id}`, {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
+        fetch(
+          `https://social-events-server-nine.vercel.app/joined-event/${_id}`,
+          {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        )
           .then((res) => res.json())
           .then((data) => {
             if (data?.success) {
-              // remove deleted event from state
               setEvent((prev) => prev.filter((item) => item._id !== _id));
 
               Swal.fire({
@@ -111,10 +116,8 @@ const JoinedEvent = () => {
                 </figure>
                 <div className="card-body">
                   <h2 className="card-title text-secondary">{e.title}</h2>
-                  <p className="text-gray-600">
-                    {e.description?.slice(0, 300)}...
-                  </p>
-                  <div className="flex justify-between text-sm text-gray-500 mt-3">
+                  <p className="">{e.description?.slice(0, 300)}...</p>
+                  <div className="flex justify-between text-sm  mt-3">
                     <span>📅 {e.date}</span>
                     <span>📍 {e.location}</span>
                   </div>

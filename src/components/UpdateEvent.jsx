@@ -51,7 +51,7 @@ const UpdateEvent = () => {
     };
     console.log(updatedEvent);
     // PUT or PATCH request to update
-    fetch(`http://localhost:3000/events/${data._id}`, {
+    fetch(`https://social-events-server-nine.vercel.app/events/${data._id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

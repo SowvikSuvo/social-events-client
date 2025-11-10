@@ -22,7 +22,8 @@ export const router = createBrowserRouter([
       {
         path: "/upcoming-events",
         element: <UpcomingEvents></UpcomingEvents>,
-        loader: () => fetch("http://localhost:3000/events"),
+        loader: () =>
+          fetch("https://social-events-server-nine.vercel.app/events"),
       },
       {
         path: "/events-details/:id",
@@ -72,7 +73,9 @@ export const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:3000/events/${params.id}`),
+          fetch(
+            `https://social-events-server-nine.vercel.app/events/${params.id}`
+          ),
       },
     ],
   },

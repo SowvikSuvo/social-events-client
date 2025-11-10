@@ -15,7 +15,7 @@ const EventsDetails = () => {
   const { user } = use(AuthContext);
 
   useEffect(() => {
-    fetch(`http://localhost:3000/events/${id}`, {
+    fetch(`https://social-events-server-nine.vercel.app/events/${id}`, {
       headers: {
         authorization: `Bearer ${user.accessToken}`,
       },
@@ -29,7 +29,7 @@ const EventsDetails = () => {
   }, [id, user]);
 
   const handleJoined = () => {
-    fetch(`http://localhost:3000/joined`, {
+    fetch(`https://social-events-server-nine.vercel.app/joined`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -59,8 +59,8 @@ const EventsDetails = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-r from-purple-100 to-pink-100 flex items-center justify-center p-4 rounded-2xl">
-      <div className="bg-white shadow-xl rounded-2xl max-w-3xl w-full overflow-hidden mb-10">
+    <div className="  flex items-center justify-center p-4 rounded-2xl ">
+      <div className="bg-base-200 shadow-2xl rounded-2xl max-w-3xl w-full overflow-hidden mb-10 border-b-neutral-500">
         <img
           src={data.thumbnail}
           alt={"e.title"}
@@ -72,17 +72,17 @@ const EventsDetails = () => {
             {data.title}
           </h1>
 
-          <div className="flex items-center text-gray-600 text-sm mb-4">
+          <div className="flex items-center  text-sm mb-4">
             <FaUser size={16} className="mr-2 text-yellow-500" /> Created by:{" "}
             {data.createdBy}
           </div>
 
-          <div className="flex items-center text-gray-600 text-sm mb-4">
-            <FaCalendarAlt size={16} className="mr-2 text-green-500" /> Date:{" "}
-            {data.date}
+          <div className="flex items-center  text-sm mb-4">
+            <FaCalendarAlt size={16} className="mr-2 text-green-500" /> Date:
+            {""} {data.date}
           </div>
 
-          <div className="flex items-center text-gray-600 text-sm mb-4">
+          <div className="flex items-center  text-sm mb-4">
             <FaMapMarkerAlt size={16} className="mr-2 text-pink-500" />{" "}
             Location: {data.location}
           </div>
@@ -94,7 +94,7 @@ const EventsDetails = () => {
             </span>
           </div>
 
-          <p className="text-gray-700 mb-6">{data.description}</p>
+          <p className=" mb-6">{data.description}</p>
 
           <button
             onClick={handleJoined}

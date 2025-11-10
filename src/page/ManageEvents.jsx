@@ -15,11 +15,14 @@ const ManageEvents = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetch(`http://localhost:3000/manage-event?email=${user.email}`, {
-      headers: {
-        authorization: `Bearer ${user.accessToken}`,
-      },
-    })
+    fetch(
+      `https://social-events-server-nine.vercel.app/manage-event?email=${user.email}`,
+      {
+        headers: {
+          authorization: `Bearer ${user.accessToken}`,
+        },
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         setManage(data);
@@ -46,12 +49,15 @@ const ManageEvents = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/manage-event/${_id}?email=${user.email}`, {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
+        fetch(
+          `https://social-events-server-nine.vercel.app/manage-event/${_id}?email=${user.email}`,
+          {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        )
           .then((res) => res.json())
           .then((data) => {
             console.log(data);

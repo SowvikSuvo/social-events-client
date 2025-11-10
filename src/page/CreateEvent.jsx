@@ -45,7 +45,7 @@ const CreateEvent = () => {
     };
     console.log(newEvent);
     // Simulate successful API call
-    fetch("http://localhost:3000/events", {
+    fetch("https://social-events-server-nine.vercel.app/events", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -72,18 +72,16 @@ const CreateEvent = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-pink-50 via-white to-purple-50 flex items-center justify-center px-4 py-10">
-      <div className="bg-white shadow-xl rounded-2xl p-8 max-w-2xl w-full border border-gray-100">
+    <div className="min-h-screen  flex items-center justify-center px-4 py-10">
+      <div className=" shadow-2xl rounded-2xl p-8 max-w-2xl w-full border border-gray-100">
         <h2 className="text-3xl font-bold text-center mb-6 bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent">
-          🌍 Create a New Event
+          Create a New Event
         </h2>
 
         <form onSubmit={handleSubmit} className="space-y-3">
           {/* Title */}
           <div>
-            <label className="block font-medium text-gray-700 mb-1">
-              Event Title
-            </label>
+            <label className="block font-medium  mb-1">Event Title</label>
             <input
               type="text"
               name="title"
@@ -97,9 +95,7 @@ const CreateEvent = () => {
 
           {/* Description */}
           <div>
-            <label className="block font-medium text-gray-700 mb-1">
-              Description
-            </label>
+            <label className="block font-medium  mb-1">Description</label>
             <textarea
               name="description"
               rows="3"
@@ -111,9 +107,7 @@ const CreateEvent = () => {
             />
           </div>
           <div>
-            <label className="block font-medium text-gray-700 mb-1">
-              Event created By
-            </label>
+            <label className="block font-medium  mb-1">Event created By</label>
             <div>
               <input
                 type="text"
@@ -129,9 +123,7 @@ const CreateEvent = () => {
 
           {/* Event Type */}
           <div>
-            <label className="block font-medium text-gray-700 mb-1">
-              Event Type
-            </label>
+            <label className="block font-medium  mb-1">Event Type</label>
             <div className="relative">
               <Type className="absolute left-3 top-3 text-pink-500" size={18} />
               <select
@@ -146,13 +138,31 @@ const CreateEvent = () => {
                 <option value="Plantation">Plantation</option>
                 <option value="Donation">Donation</option>
                 <option value="Education">Education</option>
+                <option value="Food Distribution">Food Distribution</option>
+                <option value="Shelter Support">Shelter Support</option>
+                <option value="Blood Donation">Blood Donation</option>
+                <option value="Fundraising">Fundraising</option>
+                <option value="Plastic-Free Campaign">
+                  Plastic-Free Campaign
+                </option>
+                <option value="River or Lake Restoration">
+                  River or Lake Restoration
+                </option>
+                <option value="Recycling Workshop">Recycling Workshop</option>
+                <option value="Animal Care Drive">Animal Care Drive</option>
+                <option value="Winter Blanket Donation">
+                  Winter Blanket Donation
+                </option>
+                <option value="Free Medical Checkup Camp">
+                  Free Medical Checkup Camp
+                </option>
               </select>
             </div>
           </div>
 
           {/* Thumbnail */}
           <div>
-            <label className="block font-medium text-gray-700 mb-1">
+            <label className="block font-medium  mb-1">
               Thumbnail Image URL
             </label>
             <div className="relative">
@@ -174,9 +184,7 @@ const CreateEvent = () => {
 
           {/* Location */}
           <div>
-            <label className="block font-medium text-gray-700 mb-1">
-              Location
-            </label>
+            <label className="block font-medium  mb-1">Location</label>
             <div className="relative">
               <MapPin
                 className="absolute left-3 top-3 text-pink-500"
@@ -196,9 +204,7 @@ const CreateEvent = () => {
 
           {/* Date Picker */}
           <div>
-            <label className="block font-medium text-gray-700 mb-1">
-              Event Date
-            </label>
+            <label className="block font-medium  mb-1">Event Date</label>
             <div className="relative">
               <CalendarDays
                 className="absolute left-3 top-3 text-pink-500"
