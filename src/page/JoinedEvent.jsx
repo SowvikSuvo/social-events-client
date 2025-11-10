@@ -4,7 +4,7 @@ import { Navigate, useNavigate } from "react-router";
 import Swal from "sweetalert2";
 
 const JoinedEvent = () => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const { user } = use(AuthContext);
   const [event, setEvent] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -22,9 +22,10 @@ const JoinedEvent = () => {
         setEvent(data);
         setLoading(false);
       });
-  }, []);
+  }, [user?.email]);
 
   const handleJoinedDeleteEvent = (_id) => {
+    console.log("Deleting ID:", _id);
     Swal.fire({
       title: "Are you sure?",
       text: "You won't be able to revert this!",
@@ -35,7 +36,7 @@ const JoinedEvent = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/joined-event/${_id}?email=${user.email}`, {
+        fetch(`http://localhost:3000/joined-event/${_id}`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
@@ -43,16 +44,30 @@ const JoinedEvent = () => {
         })
           .then((res) => res.json())
           .then((data) => {
-            console.log(data);
-            // navigate(0); // optional: you can replace with setEvent filter
-            Swal.fire({
-              title: "Deleted!",
-              text: "Your file has been deleted.",
-              icon: "success",
-            });
+            if (data?.success) {
+              // remove deleted event from state
+              setEvent((prev) => prev.filter((item) => item._id !== _id));
+
+              Swal.fire({
+                title: "Deleted!",
+                text: "The event has been removed.",
+                icon: "success",
+              });
+            } else {
+              Swal.fire({
+                title: "Error!",
+                text: data.message || "Failed to delete the event.",
+                icon: "error",
+              });
+            }
           })
           .catch((err) => {
-            console.log(err);
+            console.error(err);
+            Swal.fire({
+              title: "Error!",
+              text: "Something went wrong while deleting.",
+              icon: "error",
+            });
           });
       }
     });
@@ -103,11 +118,11 @@ const JoinedEvent = () => {
                     <span>📅 {e.date}</span>
                     <span>📍 {e.location}</span>
                   </div>
-                  <div
-                    onClick={() => handleJoinedDeleteEvent(e._id)}
-                    className="card-actions mt-4"
-                  >
-                    <button className="btn btn-primary w-full">
+                  <div className="card-actions mt-4">
+                    <button
+                      onClick={() => handleJoinedDeleteEvent(e._id)}
+                      className="btn btn-primary w-full"
+                    >
                       Remove Event
                     </button>
                   </div>
