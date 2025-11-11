@@ -78,8 +78,8 @@ const ManageEvents = () => {
   };
 
   return (
-    <div className="bg-base-200 flex items-center justify-center py-10 px-2 sm:px-4">
-      <div className="w-full max-w-6xl bg-base-100 shadow-xl rounded-xl p-4 sm:p-6">
+    <div className="bg-base-300 rounded-2xl flex items-center justify-center py-10 px-2 sm:px-4">
+      <div className="w-full max-w-6xl bg-base-100 shadow-2xl rounded-xl p-4 sm:p-6">
         <h2 className="text-2xl sm:text-3xl font-bold text-center mb-4 sm:mb-6">
           All Events:{" "}
           <span className="text-primary font-semibold">{manage.length}</span>

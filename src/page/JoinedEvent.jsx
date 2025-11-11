@@ -89,7 +89,7 @@ const JoinedEvent = () => {
   }
 
   return (
-    <div className="min-h-screen bg-base-200 py-10 px-6">
+    <div className="min-h-screen bg-base-300 rounded-2xl py-10 px-6">
       <div className="max-w-6xl mx-auto">
         <h1 className="text-4xl font-bold text-center text-primary mb-10">
           Joined Events

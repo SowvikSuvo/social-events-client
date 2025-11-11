@@ -73,8 +73,8 @@ const CreateEvent = () => {
   };
 
   return (
-    <div className=" flex items-center justify-center px-4 py-10">
-      <div className=" shadow-2xl rounded-2xl p-8 max-w-2xl w-full border border-gray-100">
+    <div className=" flex items-center justify-center px-4 py-10 bg-base-300 rounded-2xl">
+      <div className="bg-base-100 shadow-2xl rounded-2xl p-8 max-w-2xl w-full border border-gray-100">
         <h2 className="text-3xl font-bold text-center mb-6 bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent">
           Create a New Event
         </h2>

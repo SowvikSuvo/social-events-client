@@ -10,7 +10,7 @@ import { LuRotate3D } from "react-icons/lu";
 
 const Footer = () => {
   return (
-    <footer className="bg-gray-900 text-gray-300 px-6 py-10 md:px-12 lg:px-20">
+    <footer className="bg-gray-900 text-gray-300 px-6 py-10 md:px-12 lg:px-20 rounded-t-3xl">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10">
         {/* Logo & About */}
         <div>
