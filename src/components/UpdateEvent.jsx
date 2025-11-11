@@ -1,32 +1,46 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { format, parse } from "date-fns";
 import { CalendarDays, Image, MapPin, Type } from "lucide-react";
-import { useLoaderData, useNavigate } from "react-router";
+import { useParams } from "react-router";
 import { use } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 
 const UpdateEvent = () => {
-  const data = useLoaderData();
+  const { id } = useParams();
   const { user } = use(AuthContext);
-  const navigate = useNavigate();
+  const [formData, setFormData] = useState(null);
 
-  // 🧠 Convert the string date ("dd-MM-yyyy") into a JS Date object for the DatePicker
-  const parsedDate = data.date
-    ? parse(data.date, "dd-MM-yyyy", new Date())
-    : new Date();
+  useEffect(() => {
+    // Fetch event by ID
+    fetch(`https://social-events-server-nine.vercel.app/events/${id}`, {
+      headers: {
+        authorization: `Bearer ${user.accessToken}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((event) => {
+        const parsedDate = event.date
+          ? parse(event.date, "dd-MM-yyyy", new Date())
+          : new Date();
 
-  const [formData, setFormData] = useState({
-    title: data.title || "",
-    description: data.description || "",
-    eventType: data.eventType || "",
-    thumbnail: data.thumbnail || "",
-    location: data.location || "",
-    date: parsedDate, //  now a Date object
-  });
+        setFormData({
+          title: event.title || "",
+          description: event.description || "",
+          eventType: event.eventType || "",
+          thumbnail: event.thumbnail || "",
+          location: event.location || "",
+          date: parsedDate,
+        });
+      })
+      .catch((err) => {
+        console.error("Failed to load event:", err);
+        toast.error("Could not load event details.");
+      });
+  }, [user, id]);
 
   // Handle input changes
   const handleChange = (e) => {
@@ -47,14 +61,14 @@ const UpdateEvent = () => {
     const updatedEvent = {
       ...formData,
       date: formattedDate,
-      createdBy: user.email,
     };
     console.log(updatedEvent);
-    // PUT or PATCH request to update
-    fetch(`https://social-events-server-nine.vercel.app/events/${data._id}`, {
+
+    fetch(`https://social-events-server-nine.vercel.app/events/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        authorization: `Bearer ${user.accessToken}`,
       },
       body: JSON.stringify(updatedEvent),
     })
@@ -62,23 +76,29 @@ const UpdateEvent = () => {
       .then((data) => {
         console.log(data);
         setTimeout(() => {
-          // Swal.fire({
-          //   title: "Updated!",
-          //   text: "Event Updated Successfully!",
-          //   icon: "success",
-          // });
-          navigate("/upcoming-events");
+          Swal.fire({
+            title: "Updated!",
+            text: "Event Updated Successfully!",
+            icon: "success",
+          });
         }, 1000);
       })
+
       .catch((err) => {
         console.log(err);
         toast.error("Failed to create event. Please check your inputs");
       });
   };
+  if (!formData)
+    return (
+      <div className=" flex justify-center items-center">
+        <span className="loading loading-bars loading-xl"></span>
+      </div>
+    );
 
   return (
-    <div className=" bg-gradient-to-b from-pink-200 via-white to-purple-10 rounded-2xl flex items-center justify-center px-4 py-10">
-      <div className="bg-white shadow-xl rounded-2xl p-8 max-w-2xl w-full border border-gray-100">
+    <div className="  rounded-2xl flex items-center justify-center px-4 py-10">
+      <div className="shadow-xl rounded-2xl p-8 max-w-2xl w-full border border-gray-100">
         <h2 className="text-3xl font-bold text-center mb-6 bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent">
           Update Your Event
         </h2>
@@ -86,52 +106,44 @@ const UpdateEvent = () => {
         <form onSubmit={handleSubmit} className="space-y-3">
           {/* Title */}
           <div>
-            <label className="block font-medium text-gray-700 mb-1">
-              Event Title
-            </label>
+            <label className="block font-medium  mb-1">Event Title</label>
             <input
               type="text"
               name="title"
               value={formData.title}
               onChange={handleChange}
               required
-              className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500"
+              className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500 bg-white text-black"
             />
           </div>
 
           {/* Description */}
           <div>
-            <label className="block font-medium text-gray-700 mb-1">
-              Description
-            </label>
+            <label className="block font-medium  mb-1">Description</label>
             <textarea
               name="description"
               rows="3"
               value={formData.description}
               onChange={handleChange}
               required
-              className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500"
+              className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500 bg-white text-black"
             />
           </div>
 
           {/* Created By */}
           <div>
-            <label className="block font-medium text-gray-700 mb-1">
-              Event Created By
-            </label>
+            <label className="block font-medium  mb-1">Event Created By</label>
             <input
               type="text"
               value={user.email}
               readOnly
-              className="w-full px-4 py-2 border border-gray-300 rounded-xl bg-gray-50 text-gray-500"
+              className="w-full px-4 py-2 border border-gray-300 rounded-xl bg-white text-gray-700 "
             />
           </div>
 
           {/* Event Type */}
           <div>
-            <label className="block font-medium text-gray-700 mb-1">
-              Event Type
-            </label>
+            <label className="block font-medium  mb-1">Event Type</label>
             <div className="relative">
               <Type className="absolute left-3 top-3 text-pink-500" size={18} />
               <select
@@ -139,20 +151,66 @@ const UpdateEvent = () => {
                 value={formData.eventType}
                 onChange={handleChange}
                 required
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500"
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500 bg-white text-black"
               >
-                <option value="">Select type</option>
-                <option value="Cleanup">Cleanup</option>
-                <option value="Plantation">Plantation</option>
-                <option value="Donation">Donation</option>
-                <option value="Education">Education</option>
+                <option className="text-black" value="">
+                  Select type
+                </option>
+                <option className="text-black" value="Cleanup">
+                  Cleanup
+                </option>
+                <option className="text-black" value="Plantation">
+                  Plantation
+                </option>
+                <option className="text-black" value="Donation">
+                  Donation
+                </option>
+                <option className="text-black" value="Education">
+                  Education
+                </option>
+                <option className="text-black" value="Food Distribution">
+                  Food Distribution
+                </option>
+                <option className="text-black" value="Shelter Support">
+                  Shelter Support
+                </option>
+                <option className="text-black" value="Blood Donation">
+                  Blood Donation
+                </option>
+                <option className="text-black" value="Fundraising">
+                  Fundraising
+                </option>
+                <option className="text-black" value="Plastic-Free Campaign">
+                  Plastic-Free Campaign
+                </option>
+                <option
+                  className="text-black"
+                  value="River or Lake Restoration"
+                >
+                  River or Lake Restoration
+                </option>
+                <option className="text-black" value="Recycling Workshop">
+                  Recycling Workshop
+                </option>
+                <option className="text-black" value="Animal Care Drive">
+                  Animal Care Drive
+                </option>
+                <option className="text-black" value="Winter Blanket Donation">
+                  Winter Blanket Donation
+                </option>
+                <option
+                  className="text-black"
+                  value="Free Medical Checkup Camp"
+                >
+                  Free Medical Checkup Camp
+                </option>
               </select>
             </div>
           </div>
 
           {/* Thumbnail */}
           <div>
-            <label className="block font-medium text-gray-700 mb-1">
+            <label className="block font-medium  mb-1">
               Thumbnail Image URL
             </label>
             <div className="relative">
@@ -166,16 +224,14 @@ const UpdateEvent = () => {
                 value={formData.thumbnail}
                 onChange={handleChange}
                 required
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500"
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500 bg-white text-black"
               />
             </div>
           </div>
 
           {/* Location */}
           <div>
-            <label className="block font-medium text-gray-700 mb-1">
-              Location
-            </label>
+            <label className="block font-medium 0 mb-1">Location</label>
             <div className="relative">
               <MapPin
                 className="absolute left-3 top-3 text-pink-500"
@@ -187,19 +243,17 @@ const UpdateEvent = () => {
                 value={formData.location}
                 onChange={handleChange}
                 required
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500"
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500 bg-white text-black"
               />
             </div>
           </div>
 
           {/* Date */}
           <div>
-            <label className="block font-medium text-gray-700 mb-1">
-              Event Date
-            </label>
-            <div className="relative">
+            <label className="block font-medium  mb-1">Event Date</label>
+            <div className="relative ">
               <CalendarDays
-                className="absolute left-3 top-3 text-pink-500"
+                className="absolute left-3 top-3 text-pink-500 "
                 size={18}
               />
               <DatePicker
@@ -207,7 +261,7 @@ const UpdateEvent = () => {
                 onChange={handleDateChange}
                 minDate={new Date()}
                 dateFormat="dd-MM-yyyy"
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500"
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2  focus:ring-pink-500 "
               />
             </div>
           </div>

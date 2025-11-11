@@ -17,6 +17,7 @@ const EventsDetails = () => {
   useEffect(() => {
     fetch(`https://social-events-server-nine.vercel.app/events/${id}`, {
       headers: {
+        "Content-Type": "application/json",
         authorization: `Bearer ${user.accessToken}`,
       },
     })

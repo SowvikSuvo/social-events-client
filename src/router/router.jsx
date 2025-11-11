@@ -9,7 +9,10 @@ import ManageEvents from "../page/ManageEvents";
 import UpcomingEvents from "../page/UpcomingEvents";
 import PrivateRoute from "./PrivateRouter";
 import EventsDetails from "../components/EventsDetails";
+
 import UpdateEvent from "../components/UpdateEvent";
+
+import { AuthContext } from "../context/AuthContext";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -72,10 +75,6 @@ export const router = createBrowserRouter([
             <UpdateEvent></UpdateEvent>
           </PrivateRoute>
         ),
-        loader: ({ params }) =>
-          fetch(
-            `https://social-events-server-nine.vercel.app/events/${params.id}`
-          ),
       },
     ],
   },

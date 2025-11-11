@@ -18,3 +18,94 @@
   border-radius: 20px;
   background: rgb(243, 2, 183);
 }
+
+/* responsive */
+/* Base: Desktop & large screens */
+.table-responsive {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 1rem;
+}
+
+th,
+td {
+  padding: 0.75rem 1rem;
+  text-align: left;
+  vertical-align: middle;
+}
+
+/* Tablet: 641px to 1024px */
+@media (min-width: 641px) and (max-width: 1024px) {
+  table {
+    font-size: 0.9rem; /* slightly smaller text */
+  }
+
+  th,
+  td {
+    padding: 0.5rem 0.75rem;
+    white-space: nowrap;
+  }
+
+  td img {
+    width: 50px;
+    height: 50px;
+  }
+}
+
+/* Mobile: <= 640px */
+@media (max-width: 640px) {
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
+    display: block;
+  }
+
+  thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  tr {
+    border: 1px solid #ddd;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    padding: 10px;
+  }
+
+  td {
+    padding-left: 50%;
+    position: relative;
+    border: none;
+    text-align: left;
+    white-space: normal;
+  }
+
+  td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 10px;
+    font-weight: 600;
+  }
+
+  td[data-label="Image"] img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    transition: transform 0.3s ease;
+  }
+
+  td[data-label="Image"] img:hover {
+    transform: scale(1.1);
+  }
+}

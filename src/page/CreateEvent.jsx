@@ -48,6 +48,7 @@ const CreateEvent = () => {
     fetch("https://social-events-server-nine.vercel.app/events", {
       method: "POST",
       headers: {
+        "Content-Type": "application/json",
         authorization: `Bearer ${user.accessToken}`,
       },
       body: JSON.stringify(newEvent),
@@ -72,7 +73,7 @@ const CreateEvent = () => {
   };
 
   return (
-    <div className="min-h-screen  flex items-center justify-center px-4 py-10">
+    <div className=" flex items-center justify-center px-4 py-10">
       <div className=" shadow-2xl rounded-2xl p-8 max-w-2xl w-full border border-gray-100">
         <h2 className="text-3xl font-bold text-center mb-6 bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent">
           Create a New Event
@@ -89,7 +90,7 @@ const CreateEvent = () => {
               value={formData.title}
               onChange={handleChange}
               required
-              className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500"
+              className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500 bg-white text-black"
             />
           </div>
 
@@ -103,7 +104,7 @@ const CreateEvent = () => {
               value={formData.description}
               onChange={handleChange}
               required
-              className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500"
+              className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500 bg-white text-black"
             />
           </div>
           <div>
@@ -116,7 +117,7 @@ const CreateEvent = () => {
                 value={user.email}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500"
+                className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500 bg-white text-black"
               />
             </div>
           </div>
@@ -131,29 +132,57 @@ const CreateEvent = () => {
                 value={formData.eventType}
                 onChange={handleChange}
                 required
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500"
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500 bg-white text-black"
               >
-                <option value="">Select type</option>
-                <option value="Cleanup">Cleanup</option>
-                <option value="Plantation">Plantation</option>
-                <option value="Donation">Donation</option>
-                <option value="Education">Education</option>
-                <option value="Food Distribution">Food Distribution</option>
-                <option value="Shelter Support">Shelter Support</option>
-                <option value="Blood Donation">Blood Donation</option>
-                <option value="Fundraising">Fundraising</option>
-                <option value="Plastic-Free Campaign">
+                <option className="text-black" value="">
+                  Select type
+                </option>
+                <option className="text-black" value="Cleanup">
+                  Cleanup
+                </option>
+                <option className="text-black" value="Plantation">
+                  Plantation
+                </option>
+                <option className="text-black" value="Donation">
+                  Donation
+                </option>
+                <option className="text-black" value="Education">
+                  Education
+                </option>
+                <option className="text-black" value="Food Distribution">
+                  Food Distribution
+                </option>
+                <option className="text-black" value="Shelter Support">
+                  Shelter Support
+                </option>
+                <option className="text-black" value="Blood Donation">
+                  Blood Donation
+                </option>
+                <option className="text-black" value="Fundraising">
+                  Fundraising
+                </option>
+                <option className="text-black" value="Plastic-Free Campaign">
                   Plastic-Free Campaign
                 </option>
-                <option value="River or Lake Restoration">
+                <option
+                  className="text-black"
+                  value="River or Lake Restoration"
+                >
                   River or Lake Restoration
                 </option>
-                <option value="Recycling Workshop">Recycling Workshop</option>
-                <option value="Animal Care Drive">Animal Care Drive</option>
-                <option value="Winter Blanket Donation">
+                <option className="text-black" value="Recycling Workshop">
+                  Recycling Workshop
+                </option>
+                <option className="text-black" value="Animal Care Drive">
+                  Animal Care Drive
+                </option>
+                <option className="text-black" value="Winter Blanket Donation">
                   Winter Blanket Donation
                 </option>
-                <option value="Free Medical Checkup Camp">
+                <option
+                  className="text-black"
+                  value="Free Medical Checkup Camp"
+                >
                   Free Medical Checkup Camp
                 </option>
               </select>
@@ -177,7 +206,7 @@ const CreateEvent = () => {
                 value={formData.thumbnail}
                 onChange={handleChange}
                 required
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500"
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500 bg-white text-black"
               />
             </div>
           </div>
@@ -197,7 +226,7 @@ const CreateEvent = () => {
                 value={formData.location}
                 onChange={handleChange}
                 required
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500"
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500 bg-white text-black"
               />
             </div>
           </div>
@@ -206,17 +235,21 @@ const CreateEvent = () => {
           <div>
             <label className="block font-medium  mb-1">Event Date</label>
             <div className="relative">
-              <CalendarDays
-                className="absolute left-3 top-3 text-pink-500"
-                size={18}
-              />
+              <span>
+                {" "}
+                <CalendarDays
+                  className="absolute left-3 top-3 text-pink-500"
+                  size={18}
+                />
+              </span>
               <DatePicker
                 selected={formData.date}
                 onChange={(date) => setFormData({ ...formData, date })}
                 minDate={new Date()}
+                required
                 dateFormat="dd-MM-yyyy"
                 placeholderText="Select event date"
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500"
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500 "
               />
             </div>
           </div>

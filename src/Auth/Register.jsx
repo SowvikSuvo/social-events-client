@@ -39,13 +39,13 @@ const Register = () => {
       .then((result) => {
         console.log(result.user);
 
-        navigate(`${location.state ? location.state : "/"}`);
         Swal.fire({
           title: "Registration Successful!",
           text: "Welcome to Social Events Platform 🎉",
           icon: "success",
           confirmButtonColor: "#f43f5e",
         });
+        navigate(`${location.state ? location.state : "/"}`);
         form.reset();
       })
       .catch((error) => {

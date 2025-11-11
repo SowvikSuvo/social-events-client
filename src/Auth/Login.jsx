@@ -20,6 +20,7 @@ const Login = () => {
     signInUser(email, password)
       .then((result) => {
         console.log(result.user);
+        e.target.reset();
         Swal.fire({
           position: "top-end",
           icon: "success",
@@ -27,7 +28,7 @@ const Login = () => {
           showConfirmButton: false,
           timer: 1500,
         });
-        e.target.reset();
+
         navigate(`${location.state ? location.state : "/"}`);
       })
       .catch((error) => {
@@ -79,6 +80,7 @@ const Login = () => {
             </label>
             <input
               type="email"
+              name="email"
               required
               placeholder="you@example.com"
               className="input input-bordered w-full rounded-xl dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200"
@@ -90,6 +92,7 @@ const Login = () => {
             </label>
             <input
               type="password"
+              name="password"
               required
               placeholder="••••••••"
               className="input input-bordered w-full rounded-xl dark:bg-gray-800 dark:border-gray-700 dark:text-gray-200"

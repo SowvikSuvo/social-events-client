@@ -1,6 +1,6 @@
 import React, { use, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { Navigate, useNavigate } from "react-router";
+import { Navigate} from "react-router";
 import Swal from "sweetalert2";
 
 const JoinedEvent = () => {
@@ -16,6 +16,7 @@ const JoinedEvent = () => {
       {
         method: "GET",
         headers: {
+          "Content-Type": "application/json",
           authorization: `Bearer ${user.accessToken}`,
         },
       }
@@ -44,6 +45,7 @@ const JoinedEvent = () => {
           {
             method: "DELETE",
             headers: {
+              "Content-Type": "application/json",
               authorization: `Bearer ${user.accessToken}`,
             },
           }
@@ -102,7 +104,7 @@ const JoinedEvent = () => {
             {event.map((e) => (
               <div
                 key={e._id}
-                className="card bg-base-100 shadow-lg hover:shadow-2xl transition-all duration-300"
+                className="card bg-base-100 shadow-lg hover:shadow-2xl transition-all  duration-300"
               >
                 <figure>
                   <img
