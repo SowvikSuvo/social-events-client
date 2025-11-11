@@ -15,6 +15,8 @@ const EventsDetails = () => {
   const { user } = use(AuthContext);
 
   useEffect(() => {
+    if (!user) return;
+
     fetch(`https://social-events-server-nine.vercel.app/events/${id}`, {
       headers: {
         "Content-Type": "application/json",
@@ -26,29 +28,51 @@ const EventsDetails = () => {
         console.log(data);
         setData(data);
         setLoading(false);
-      });
+      })
+      .catch(() => setLoading(false));
   }, [id, user]);
 
   const handleJoined = () => {
+    const joinedData = {
+      eventId: data._id,
+      title: data.title,
+      description: data.description,
+      eventType: data.eventType,
+      thumbnail: data.thumbnail,
+      location: data.location,
+      date: data.date,
+    };
     fetch(`https://social-events-server-nine.vercel.app/joined`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         authorization: `Bearer ${user.accessToken}`,
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(joinedData),
     })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
-        Swal.fire({
-          title: "Successfully join event!",
-          text: "Welcome to our event!",
-          icon: "success",
-        });
+        if (data.success) {
+          Swal.fire({
+            title: "Joined Successfully!",
+            text: "Welcome to our event!",
+            icon: "success",
+          });
+        } else {
+          Swal.fire({
+            icon: "info",
+            title: "Already Joined",
+            text: data.message || "You have already joined this event.",
+          });
+        }
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(() => {
+        Swal.fire({
+          icon: "error",
+          title: "Failed to join",
+          text: "Something went wrong. Try again later",
+        });
       });
   };
 

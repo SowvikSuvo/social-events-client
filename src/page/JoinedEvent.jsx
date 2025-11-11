@@ -1,6 +1,6 @@
 import React, { use, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { Navigate} from "react-router";
+import { Navigate } from "react-router";
 import Swal from "sweetalert2";
 
 const JoinedEvent = () => {
@@ -26,7 +26,7 @@ const JoinedEvent = () => {
         setEvent(data);
         setLoading(false);
       });
-  }, [user?.email]);
+  }, []);
 
   const handleJoinedDeleteEvent = (_id) => {
     console.log("Deleting ID:", _id);
