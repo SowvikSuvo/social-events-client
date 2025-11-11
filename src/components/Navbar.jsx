@@ -43,7 +43,7 @@ const Navbar = () => {
       });
   };
   return (
-    <div className="navbar relative py-0 min-h-0 z-50 shadow-sm rounded-full glass-card max-w-7xl">
+    <div className="navbar relative min-h-0 z-50 shadow-sm rounded-full glass-card max-w-7xl  w-full ">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost md:hidden">
