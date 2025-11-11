@@ -48,7 +48,7 @@ const CreateEvent = () => {
     fetch("https://social-events-server-nine.vercel.app/events", {
       method: "POST",
       headers: {
-        "Content-Type": "application/json",
+        authorization: `Bearer ${user.accessToken}`,
       },
       body: JSON.stringify(newEvent),
     })

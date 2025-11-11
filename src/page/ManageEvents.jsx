@@ -54,7 +54,7 @@ const ManageEvents = () => {
           {
             method: "DELETE",
             headers: {
-              "Content-Type": "application/json",
+              authorization: `Bearer ${user.accessToken}`,
             },
           }
         )

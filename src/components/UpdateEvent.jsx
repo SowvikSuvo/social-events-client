@@ -25,7 +25,7 @@ const UpdateEvent = () => {
     eventType: data.eventType || "",
     thumbnail: data.thumbnail || "",
     location: data.location || "",
-    date: parsedDate, // ✅ now a Date object
+    date: parsedDate, //  now a Date object
   });
 
   // Handle input changes
@@ -46,7 +46,7 @@ const UpdateEvent = () => {
 
     const updatedEvent = {
       ...formData,
-      date: formattedDate, // ✅ format date before sending
+      date: formattedDate,
       createdBy: user.email,
     };
     console.log(updatedEvent);

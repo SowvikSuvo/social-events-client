@@ -44,7 +44,7 @@ const JoinedEvent = () => {
           {
             method: "DELETE",
             headers: {
-              "Content-Type": "application/json",
+              authorization: `Bearer ${user.accessToken}`,
             },
           }
         )

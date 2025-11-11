@@ -5,6 +5,7 @@ import {
   FaLinkedinIn,
   FaTwitter,
 } from "react-icons/fa";
+import { LuRotate3D } from "react-icons/lu";
 
 const Footer = () => {
   return (
@@ -12,7 +13,9 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-10">
         {/* Logo & About */}
         <div>
-          <h2 className="text-2xl font-bold text-white mb-4">Social Events</h2>
+          <h2 className="text-2xl font-bold text-white mb-4">
+            <LuRotate3D /> KindEarth
+          </h2>
           <p className="text-sm leading-relaxed">
             Empowering communities through meaningful social development events.
             Connect, collaborate, and create positive change together.
@@ -29,17 +32,20 @@ const Footer = () => {
               </a>
             </li>
             <li>
-              <a href="/events" className="hover:text-white transition">
+              <a
+                href="/upcoming-events"
+                className="hover:text-white transition"
+              >
                 Events
               </a>
             </li>
             <li>
-              <a href="/about" className="hover:text-white transition">
+              <a href="/" className="hover:text-white transition">
                 About Us
               </a>
             </li>
             <li>
-              <a href="/contact" className="hover:text-white transition">
+              <a href="/" className="hover:text-white transition">
                 Contact
               </a>
             </li>
@@ -51,19 +57,13 @@ const Footer = () => {
           <h3 className="text-lg font-semibold text-white mb-3">Support</h3>
           <ul className="space-y-2 text-sm">
             <li>
-              <a href="/faq" className="hover:text-white transition">
-                FAQ
-              </a>
+              <a className="hover:text-white transition">FAQ</a>
             </li>
             <li>
-              <a href="/privacy" className="hover:text-white transition">
-                Privacy Policy
-              </a>
+              <a className="hover:text-white transition">Privacy Policy</a>
             </li>
             <li>
-              <a href="/terms" className="hover:text-white transition">
-                Terms of Service
-              </a>
+              <a className="hover:text-white transition">Terms of Service</a>
             </li>
           </ul>
         </div>
@@ -72,16 +72,16 @@ const Footer = () => {
         <div>
           <h3 className="text-lg font-semibold text-white mb-3">Follow Us</h3>
           <div className="flex gap-4 text-xl">
-            <a href="#" className="hover:text-blue-500">
+            <a className="hover:text-blue-500">
               <FaFacebookF />
             </a>
-            <a href="#" className="hover:text-pink-500">
+            <a className="hover:text-pink-500">
               <FaInstagram />
             </a>
-            <a href="#" className="hover:text-sky-400">
+            <a className="hover:text-sky-400">
               <FaTwitter />
             </a>
-            <a href="#" className="hover:text-blue-400">
+            <a className="hover:text-blue-400">
               <FaLinkedinIn />
             </a>
           </div>
