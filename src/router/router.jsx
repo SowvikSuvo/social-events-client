@@ -11,6 +11,7 @@ import PrivateRoute from "./PrivateRouter";
 import EventsDetails from "../components/EventsDetails";
 
 import UpdateEvent from "../components/UpdateEvent";
+import NotFound from "../page/NotFound";
 
 export const router = createBrowserRouter([
   {
@@ -73,6 +74,10 @@ export const router = createBrowserRouter([
             <UpdateEvent></UpdateEvent>
           </PrivateRoute>
         ),
+      },
+      {
+        path: "*",
+        element: <NotFound></NotFound>,
       },
     ],
   },
