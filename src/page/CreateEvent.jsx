@@ -45,7 +45,7 @@ const CreateEvent = () => {
     };
     console.log(newEvent);
     // Simulate successful API call
-    fetch("https://social-events-server-nine.vercel.app/events", {
+    fetch("https://assigment-10-bice.vercel.app/events", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

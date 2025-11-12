@@ -16,7 +16,7 @@ const UpdateEvent = () => {
 
   useEffect(() => {
     // Fetch event by ID
-    fetch(`https://social-events-server-nine.vercel.app/events/${id}`, {
+    fetch(`https://assigment-10-bice.vercel.app/events/${id}`, {
       headers: {
         authorization: `Bearer ${user.accessToken}`,
       },
@@ -64,7 +64,7 @@ const UpdateEvent = () => {
     };
     console.log(updatedEvent);
 
-    fetch(`https://social-events-server-nine.vercel.app/events/${id}`, {
+    fetch(`https://assigment-10-bice.vercel.app/events/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

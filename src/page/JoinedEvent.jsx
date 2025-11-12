@@ -12,7 +12,7 @@ const JoinedEvent = () => {
 
   useEffect(() => {
     fetch(
-      `https://social-events-server-nine.vercel.app/joined-event?email=${user?.email}`,
+      `https://assigment-10-bice.vercel.app/joined-event?email=${user?.email}`,
       {
         method: "GET",
         headers: {
@@ -40,16 +40,13 @@ const JoinedEvent = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(
-          `https://social-events-server-nine.vercel.app/joined-event/${_id}`,
-          {
-            method: "DELETE",
-            headers: {
-              "Content-Type": "application/json",
-              authorization: `Bearer ${user.accessToken}`,
-            },
-          }
-        )
+        fetch(`https://assigment-10-bice.vercel.app/joined-event/${_id}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `Bearer ${user.accessToken}`,
+          },
+        })
           .then((res) => res.json())
           .then((data) => {
             if (data?.success) {

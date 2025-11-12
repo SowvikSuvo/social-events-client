@@ -12,7 +12,6 @@ import EventsDetails from "../components/EventsDetails";
 
 import UpdateEvent from "../components/UpdateEvent";
 
-import { AuthContext } from "../context/AuthContext";
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -25,8 +24,7 @@ export const router = createBrowserRouter([
       {
         path: "/upcoming-events",
         element: <UpcomingEvents></UpcomingEvents>,
-        loader: () =>
-          fetch("https://social-events-server-nine.vercel.app/events"),
+        loader: () => fetch("https://assigment-10-bice.vercel.app/events"),
       },
       {
         path: "/events-details/:id",

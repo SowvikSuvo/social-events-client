@@ -16,7 +16,7 @@ const ManageEvents = () => {
 
   useEffect(() => {
     fetch(
-      `https://social-events-server-nine.vercel.app/manage-event?email=${user.email}`,
+      `https://assigment-10-bice.vercel.app/manage-event?email=${user.email}`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -51,7 +51,7 @@ const ManageEvents = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         fetch(
-          `https://social-events-server-nine.vercel.app/manage-event/${_id}?email=${user.email}`,
+          `https://assigment-10-bice.vercel.app/manage-event/${_id}?email=${user.email}`,
           {
             method: "DELETE",
             headers: {

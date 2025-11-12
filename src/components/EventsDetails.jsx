@@ -17,7 +17,7 @@ const EventsDetails = () => {
   useEffect(() => {
     if (!user) return;
 
-    fetch(`https://social-events-server-nine.vercel.app/events/${id}`, {
+    fetch(`https://assigment-10-bice.vercel.app/events/${id}`, {
       headers: {
         "Content-Type": "application/json",
         authorization: `Bearer ${user.accessToken}`,
@@ -42,7 +42,7 @@ const EventsDetails = () => {
       location: data.location,
       date: data.date,
     };
-    fetch(`https://social-events-server-nine.vercel.app/joined`, {
+    fetch(`https://assigment-10-bice.vercel.app/joined`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

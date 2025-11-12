@@ -13,9 +13,7 @@ const UpcomingEvents = () => {
     setEventType(selectedType);
     setLoading(true);
 
-    fetch(
-      `https://social-events-server-nine.vercel.app/filter?type=${selectedType}`
-    )
+    fetch(`https://assigment-10-bice.vercel.app/filter?type=${selectedType}`)
       .then((res) => res.json())
       .then((data) => {
         setEvents(Array.isArray(data) ? data : []);
@@ -29,9 +27,7 @@ const UpcomingEvents = () => {
     const search_text = e.target.search.value;
     setLoading(true);
 
-    fetch(
-      `https://social-events-server-nine.vercel.app/search?search=${search_text}`
-    )
+    fetch(`https://assigment-10-bice.vercel.app/search?search=${search_text}`)
       .then((res) => res.json())
       .then((data) => {
         setEvents(Array.isArray(data) ? data : []);
