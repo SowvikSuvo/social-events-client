@@ -1,4 +1,4 @@
-# 🌍 KindEarth - Social Development Events Platform
+# KindEarth - Social Development Events Platform
 
 **KindEarth** is a community-driven event management platform that empowers users to create, join, and manage social service events in their local area.  
 From cleanup drives and plantation programs to donation campaigns — KindEarth brings people together to make a positive impact on society.
