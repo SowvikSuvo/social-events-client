@@ -1,6 +1,6 @@
 1. Website Name - KindEarth
 
-2. Live site URL -
+2. Live site URL - https://harmonious-lebkuchen-d713e8.netlify.app/
 
 3. Feature of website-
 
