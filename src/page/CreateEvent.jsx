@@ -2,8 +2,15 @@ import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-// import { toast } from "react-hot-toast";
-import { CalendarDays, Image, MapPin, Type } from "lucide-react";
+import {
+  CalendarDays,
+  Image,
+  Mail,
+  MapPin,
+  MousePointer,
+  ReceiptText,
+  Type,
+} from "lucide-react";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router";
 import { use } from "react";
@@ -43,8 +50,7 @@ const CreateEvent = () => {
       date: formattedDate,
       createdBy: user.email,
     };
-    console.log(newEvent);
-    // Simulate successful API call
+
     fetch("https://assigment-10-bice.vercel.app/events", {
       method: "POST",
       headers: {
@@ -83,33 +89,43 @@ const CreateEvent = () => {
           {/* Title */}
           <div>
             <label className="block font-medium  mb-1">Event Title</label>
-            <input
-              type="text"
-              name="title"
-              placeholder="Enter event title"
-              value={formData.title}
-              onChange={handleChange}
-              required
-              className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500 bg-white text-black"
-            />
+            <div className="relative">
+              <Type className="absolute left-2 top-3 text-pink-500" size={18} />
+              <input
+                type="text"
+                name="title"
+                placeholder="Enter event title"
+                value={formData.title}
+                onChange={handleChange}
+                required
+                className="w-full pl-8 px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500 bg-white text-black"
+              />
+            </div>
           </div>
 
           {/* Description */}
           <div>
             <label className="block font-medium  mb-1">Description</label>
-            <textarea
-              name="description"
-              rows="3"
-              placeholder="Enter a short description..."
-              value={formData.description}
-              onChange={handleChange}
-              required
-              className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500 bg-white text-black"
-            />
+            <div className="relative">
+              <ReceiptText
+                className="absolute left-2 top-3 text-pink-500"
+                size={18}
+              />
+              <textarea
+                name="description"
+                rows="3"
+                placeholder="Enter a short description..."
+                value={formData.description}
+                onChange={handleChange}
+                required
+                className="w-full pl-8 px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500 bg-white text-black"
+              />
+            </div>
           </div>
           <div>
             <label className="block font-medium  mb-1">Event created By</label>
-            <div>
+            <div className="relative">
+              <Mail className="absolute left-2 top-3 text-pink-500" size={18} />
               <input
                 type="text"
                 name="email"
@@ -117,7 +133,7 @@ const CreateEvent = () => {
                 value={user.email}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500 bg-white text-black"
+                className="w-full pl-9 px-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500 bg-white text-black"
               />
             </div>
           </div>
@@ -126,13 +142,16 @@ const CreateEvent = () => {
           <div>
             <label className="block font-medium  mb-1">Event Type</label>
             <div className="relative">
-              <Type className="absolute left-3 top-3 text-pink-500" size={18} />
+              <MousePointer
+                className="absolute left-2 top-3 text-pink-500"
+                size={18}
+              />
               <select
                 name="eventType"
                 value={formData.eventType}
                 onChange={handleChange}
                 required
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500 bg-white text-black"
+                className="w-full pl-8 pr-4 py-2 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500 bg-white text-black"
               >
                 <option className="text-black" value="">
                   Select type
@@ -257,7 +276,7 @@ const CreateEvent = () => {
           {/* Submit Button */}
           <button
             type="submit"
-            className="w-full bg-gradient-to-r from-pink-500 to-purple-600 text-white py-3 rounded-xl font-semibold text-lg shadow-lg hover:opacity-90 transition-all duration-200"
+            className="w-full bg-gradient-to-r from-pink-500 to-purple-600 text-white py-3 font-medium rounded-xl font-semibold text-lg shadow-lg hover:opacity-90 transition-all duration-200"
           >
             Create Event
           </button>

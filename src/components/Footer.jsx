@@ -1,4 +1,3 @@
-// src/components/Footer.jsx
 import {
   FaFacebookF,
   FaInstagram,

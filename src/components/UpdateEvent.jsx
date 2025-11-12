@@ -15,7 +15,6 @@ const UpdateEvent = () => {
   const [formData, setFormData] = useState(null);
 
   useEffect(() => {
-    // Fetch event by ID
     fetch(`https://assigment-10-bice.vercel.app/events/${id}`, {
       headers: {
         authorization: `Bearer ${user.accessToken}`,

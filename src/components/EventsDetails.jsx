@@ -4,7 +4,7 @@ import { useState } from "react";
 import { use } from "react";
 import { useEffect } from "react";
 import { FaCalendarAlt, FaMapMarkerAlt, FaUser } from "react-icons/fa";
-import { useParams } from "react-router";
+import { Link, useParams } from "react-router";
 import Swal from "sweetalert2";
 import { AuthContext } from "../context/AuthContext";
 
@@ -128,6 +128,15 @@ const EventsDetails = () => {
           >
             Join Event
           </button>
+        </div>
+        <div className="mt-5 flex justify-center pb-5">
+          {" "}
+          <Link
+            to={"/upcoming-events"}
+            className=" bg-gradient-to-r font-medium from-pink-500 to-red-500 text-white rounded-xl  py-2 px-3 hover:opacity-80 transition-all duration-200 "
+          >
+            More Event
+          </Link>
         </div>
       </div>
     </div>

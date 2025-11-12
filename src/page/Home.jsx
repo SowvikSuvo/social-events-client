@@ -1,13 +1,9 @@
 import React, { useState } from "react";
-
 import { motion, AnimatePresence } from "framer-motion";
 import Banner from "../components/Banner";
 import Features from "../components/Feature";
 
 const Home = () => {
-  //   const [current, setCurrent] = useState(0);
-  // Motion value for soft parallax on mouse movement
-
   return (
     <div className="font-sans bg-white text-black dark:bg-gray-900 dark:text-gray-100">
       {/* ===== Banner Section ===== */}

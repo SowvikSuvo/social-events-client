@@ -91,7 +91,7 @@ const ManageEvents = () => {
             <thead className="bg-gradient-to-r from-primary to-secondary text-white">
               <tr>
                 <th>SL No</th>
-                {/* 2. Add class 'hide-mobile' to Image and Category columns */}
+
                 <th className="hide-mobile">Image</th>
                 <th>Title</th>
                 <th className="hide-mobile">Category</th>
@@ -109,7 +109,6 @@ const ManageEvents = () => {
                   transition={{ duration: 0.4, delay: index * 0.1 }}
                   className="hover:bg-base-200 transition-all duration-300"
                 >
-                  {/* 3. Add data-label attributes for stacking on mobile */}
                   <td data-label="SL No" className="text-center">
                     {index + 1}
                   </td>
@@ -152,6 +151,15 @@ const ManageEvents = () => {
               ))}
             </tbody>
           </table>
+        </div>
+        <div className="mt-7 flex justify-center">
+          {" "}
+          <Link
+            to={"/create-event"}
+            className=" btn bg-gradient-to-r from-pink-500 to-red-500 text-white  hover:opacity-80 transition-all duration-200 "
+          >
+            Create new event
+          </Link>
         </div>
       </div>
     </div>

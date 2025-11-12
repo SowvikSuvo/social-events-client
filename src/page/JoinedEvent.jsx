@@ -1,6 +1,6 @@
 import React, { use, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { Navigate } from "react-router";
+import { Link, Navigate } from "react-router";
 import Swal from "sweetalert2";
 
 const JoinedEvent = () => {
@@ -114,7 +114,7 @@ const JoinedEvent = () => {
                   />
                 </figure>
                 <div className="card-body">
-                  <h2 className="card-title text-secondary">{e.title}</h2>
+                  <h2 className="card-title text-secondary">{e.title} </h2>
                   <p className="">{e.description?.slice(0, 300)}...</p>
                   <div className="flex justify-between text-sm  mt-3">
                     <span>📅 {e.date}</span>
@@ -133,6 +133,16 @@ const JoinedEvent = () => {
             ))}
           </div>
         )}
+      </div>
+
+      <div className="mt-5 flex justify-center">
+        {" "}
+        <Link
+          to={"/upcoming-events"}
+          className=" btn bg-gradient-to-r from-pink-500 to-red-500 text-white  hover:opacity-80 transition-all duration-200 "
+        >
+          More Join event
+        </Link>
       </div>
     </div>
   );
