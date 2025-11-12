@@ -16,7 +16,8 @@ From cleanup drives and plantation programs to donation campaigns — KindEarth 
 - **Community Connection** – Connect with people who share your passion for social change.
 - **Dark & Light Themes** – Enjoy a modern, user-friendly interface with theme customization.
 - **Secure Authentication** – Sign in securely with your email or Google account.
-- **Protected Routes** – Secure private routes (like 'ViewDetails', 'Create event', 'manage event','joined event') that automatically redirect unauthenticated users to the Login page.
+- **Filter sort and search** – Joined event, manage event sorting by date and search sort filter maintains with database api(mongoDb).
+- **Protected Routes** – Secure private routes (like 'ViewDetails', 'Create event', 'manage event', 'joined event' ) that automatically redirect unauthenticated users to the Login page.
 
 ---
 
