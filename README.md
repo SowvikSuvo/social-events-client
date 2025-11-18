@@ -90,15 +90,16 @@ From cleanup drives and plantation programs to donation campaigns — KindEarth 
 | vite | ^7.1.7 |
 
 ---
+### Deployment
+
+- Client: Netlify
+- Server: Vercel
 
 ## 🚀 How to Run Locally
 
 ### 1️⃣ Clone the Repository
 ```bash
-git clone https://github.com/your-username/apps-store.git
-cd apps-store
+https://github.com/SowvikSuvo/social-events-client.git
+cd social-events-client
 
-### Deployment
 
-- **Client:** Netlify
-- **Server:** Vercel
