@@ -9,70 +9,74 @@ import {
 import { GoHomeFill } from "react-icons/go";
 import { IoCreateSharp, IoLogIn } from "react-icons/io5";
 import { TbLogout2 } from "react-icons/tb";
+import { FcAbout } from "react-icons/fc";
+import { IoIosContacts } from "react-icons/io";
 import { AuthContext } from "../context/AuthContext";
 import { Link, NavLink } from "react-router";
 
 const Navbar = () => {
   const { user, signOutUser } = useContext(AuthContext);
-
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
-  // Apply theme to <html> and persist in localStorage
+  // Apply theme to html and persist
   useEffect(() => {
     document.documentElement.setAttribute("data-theme", theme);
     localStorage.setItem("theme", theme);
   }, [theme]);
 
-  const handleThemeToggle = (e) => {
-    setTheme(e.target.checked ? "dark" : "light");
-  };
-
   const handleSignOut = async () => {
     await signOutUser();
   };
 
+  // Reusable NavLink with active styling
+  const MenuLink = ({ to, icon: Icon, label }) => (
+    <NavLink
+      to={to}
+      className={({ isActive }) =>
+        `flex items-center gap-1 px-3 py-2 rounded-full transition-colors ${
+          isActive
+            ? "bg-pink-500 text-white font-semibold"
+            : "text-gray-700 hover:text-pink-500"
+        }`
+      }
+      onClick={() => setMobileMenuOpen(false)} // close mobile menu on click
+    >
+      {Icon && <Icon />} {label}
+    </NavLink>
+  );
+
   return (
-    <div className="fixed top-0 z-50 w-full bg-base-100 shadow">
-      <div className="navbar max-w-7xl mx-auto px-4">
-        {/* LEFT */}
-        <div className="navbar-start">
-          <Link to="/" className="flex items-center gap-1 text-xl font-bold">
-            <FaStudiovinari />
-            <span className="text-pink-500">
-              Kind<span className="text-purple-500">Earth</span>
-            </span>
-          </Link>
-        </div>
+    <nav className="fixed top-0 z-50 w-full bg-base-100 shadow-md">
+      <div className="max-w-7xl mx-auto flex items-center justify-between px-4 py-3 md:py-4">
+        {/* LOGO */}
+        <Link to="/" className="flex items-center gap-2 text-2xl font-bold">
+          <FaStudiovinari />
+          <span className="text-pink-500">
+            Kind<span className="text-purple-500">Earth</span>
+          </span>
+        </Link>
 
-        {/* CENTER */}
-        <div className="navbar-center hidden md:flex">
-          <ul className="menu menu-horizontal gap-6">
-            <NavLink to="/" className="flex items-center gap-1">
-              <GoHomeFill /> Home
-            </NavLink>
+        {/* MENU - LARGE SCREEN */}
+        <ul className="hidden md:flex gap-4 mx-auto text-lg font-medium">
+          <MenuLink to="/" icon={GoHomeFill} label="Home" />
+          <MenuLink to="/upcoming-events" icon={MdUpcoming} label="Upcoming" />
+          {user && (
+            <MenuLink to="/dashboard" icon={MdDashboard} label="Dashboard" />
+          )}
+          <MenuLink to="/about-us" icon={FcAbout} label="About" />
+          <MenuLink to="/contact-us" icon={IoIosContacts} label="Contact" />
+        </ul>
 
-            <NavLink to="/upcoming-events" className="flex items-center gap-1">
-              <MdUpcoming /> Upcoming Events
-            </NavLink>
-
-            {user && (
-              <NavLink to="/dashboard" className="flex items-center gap-1">
-                <MdDashboard /> Dashboard
-              </NavLink>
-            )}
-          </ul>
-        </div>
-
-        {/* RIGHT */}
-        <div className="navbar-end gap-3">
+        {/* RIGHT SECTION */}
+        <div className="flex items-center gap-3">
           {/* THEME TOGGLE */}
           <label className="swap swap-rotate">
             <input
               type="checkbox"
-              onChange={handleThemeToggle}
+              onChange={(e) => setTheme(e.target.checked ? "dark" : "light")}
               checked={theme === "dark"}
             />
-
             {/* Sun */}
             <svg
               className="swap-off h-6 w-6 fill-current"
@@ -81,7 +85,6 @@ const Navbar = () => {
             >
               <path d="M5 12a7 7 0 1014 0 7 7 0 00-14 0z" />
             </svg>
-
             {/* Moon */}
             <svg
               className="swap-on h-6 w-6 fill-current"
@@ -92,66 +95,100 @@ const Navbar = () => {
             </svg>
           </label>
 
+          {/* USER LOGIN/AVATAR */}
           {user ? (
-            <>
-              {/* User Dropdown */}
-              <div className="dropdown dropdown-end">
-                <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
-                  <img
-                    className="rounded-full"
-                    src={user.photoURL || "https://i.ibb.co/5GzXkwq/user.png"}
-                    alt="user"
-                  />
-                </label>
-
-                <ul
-                  tabIndex={0}
-                  className="menu dropdown-content bg-base-100 rounded-box w-52 p-2 shadow"
-                >
-                  <li className="text-center border-b pb-2">
-                    <p className="font-bold">{user.displayName}</p>
-                    <p className="text-xs">{user.email}</p>
-                  </li>
-
-                  <li>
-                    <NavLink to="/dashboard/create-event">
-                      <IoCreateSharp /> Create Event
-                    </NavLink>
-                  </li>
-
-                  <li>
-                    <NavLink to="/dashboard/manage-event">
-                      <MdManageAccounts /> Manage Events
-                    </NavLink>
-                  </li>
-
-                  <li>
-                    <NavLink to="/dashboard/joined-event">
-                      <MdOutlineJoinInner /> Joined Events
-                    </NavLink>
-                  </li>
-                </ul>
-              </div>
-
-              {/* Logout Button */}
-              <button
-                onClick={handleSignOut}
-                className="btn btn-sm bg-red-500 text-white"
+            <div className="dropdown dropdown-end">
+              <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
+                <img
+                  src={user.photoURL || "https://i.ibb.co/5GzXkwq/user.png"}
+                  alt="user"
+                  className="rounded-full w-10 h-10"
+                />
+              </label>
+              <ul
+                tabIndex={0}
+                className="menu dropdown-content bg-base-100 rounded-box w-52 p-2 shadow"
               >
-                <TbLogout2 /> Logout
-              </button>
-            </>
+                <li className="text-center border-b pb-2">
+                  <p className="font-bold">{user.displayName}</p>
+                  <p className="text-xs">{user.email}</p>
+                </li>
+                <li>
+                  <MenuLink
+                    to="/dashboard/create-event"
+                    icon={IoCreateSharp}
+                    label="Create Event"
+                  />
+                </li>
+                <li>
+                  <MenuLink
+                    to="/dashboard/manage-event"
+                    icon={MdManageAccounts}
+                    label="Manage Events"
+                  />
+                </li>
+                <li>
+                  <MenuLink
+                    to="/dashboard/joined-event"
+                    icon={MdOutlineJoinInner}
+                    label="Joined Events"
+                  />
+                </li>
+                <li>
+                  <button
+                    onClick={handleSignOut}
+                    className="btn btn-sm btn-error w-full mt-2 flex items-center justify-center gap-1"
+                  >
+                    <TbLogout2 /> Logout
+                  </button>
+                </li>
+              </ul>
+            </div>
           ) : (
             <Link
               to="/auth/login"
-              className="btn btn-sm bg-gradient-to-r from-pink-500 to-blue-600 text-white"
+              className="btn btn-sm bg-gradient-to-r from-pink-500 to-blue-600 text-white flex items-center gap-1"
             >
               <IoLogIn /> Login
             </Link>
           )}
+
+          {/* MOBILE MENU TOGGLE */}
+          <button
+            className="md:hidden btn btn-ghost btn-circle"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </svg>
+          </button>
         </div>
       </div>
-    </div>
+
+      {/* MOBILE MENU */}
+      {mobileMenuOpen && (
+        <ul className="md:hidden menu bg-base-100 px-4 py-4 gap-2">
+          <MenuLink to="/" icon={GoHomeFill} label="Home" />
+          <MenuLink to="/upcoming-events" icon={MdUpcoming} label="Upcoming" />
+          {user && (
+            <MenuLink to="/dashboard" icon={MdDashboard} label="Dashboard" />
+          )}
+          <MenuLink to="/about-us" icon={FcAbout} label="About" />
+          <MenuLink to="/contact-us" icon={IoIosContacts} label="Contact" />
+        </ul>
+      )}
+    </nav>
   );
 };
 

@@ -135,7 +135,7 @@ const ManageEvents = () => {
                     className="flex flex-col sm:flex-row gap-2 justify-center items-center"
                   >
                     <Link
-                      to={`/update-event/${event._id}`}
+                      to={`/dashboard/update-event/${event._id}`}
                       className="btn btn-xs sm:btn-sm btn-primary hover:scale-105 transition-transform"
                     >
                       Update
@@ -155,7 +155,7 @@ const ManageEvents = () => {
         <div className="mt-7 flex justify-center">
           {" "}
           <Link
-            to={"/create-event"}
+            to={"/dashboard/create-event"}
             className=" btn bg-gradient-to-r from-pink-500 to-red-500 text-white  hover:opacity-80 transition-all duration-200 "
           >
             Create new event

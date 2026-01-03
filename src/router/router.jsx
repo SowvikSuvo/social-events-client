@@ -14,6 +14,8 @@ import UpdateEvent from "../components/UpdateEvent";
 import NotFound from "../page/NotFound";
 import DashboardLayout from "../layouts/DashboardLayout";
 import Dashboard from "../page/Dashboard";
+import AboutUs from "../page/AboutUs";
+import ContactUs from "../page/ContactUs";
 
 export const router = createBrowserRouter([
   {
@@ -49,6 +51,14 @@ export const router = createBrowserRouter([
       {
         path: "*",
         element: <NotFound></NotFound>,
+      },
+      {
+        path: "/about-us",
+        element: <AboutUs></AboutUs>,
+      },
+      {
+        path: "/contact-us",
+        element: <ContactUs></ContactUs>,
       },
     ],
   },

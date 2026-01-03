@@ -6,17 +6,20 @@ import { ToastContainer } from "react-toastify";
 
 const MainLayout = () => {
   return (
-    <div className="">
-      <div className="max-w-7xl mx-auto ">
-        <Navbar></Navbar>
-        <div className="mt-24 min-h-screen">
-          <Outlet></Outlet>
-        </div>
-        <div className="">
-          <Footer></Footer>
-        </div>
-      </div>
-      <ToastContainer></ToastContainer>
+    <div className="flex flex-col min-h-screen">
+      {/* Navbar */}
+      <Navbar />
+
+      {/* Main content */}
+      <main className="flex-1 mt-24 max-w-7xl mx-auto w-full px-4">
+        <Outlet />
+      </main>
+
+      {/* Footer */}
+      <Footer />
+
+      {/* Toasts */}
+      <ToastContainer />
     </div>
   );
 };
