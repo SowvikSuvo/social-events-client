@@ -12,6 +12,8 @@ import EventsDetails from "../components/EventsDetails";
 
 import UpdateEvent from "../components/UpdateEvent";
 import NotFound from "../page/NotFound";
+import DashboardLayout from "../layouts/DashboardLayout";
+import Dashboard from "../page/Dashboard";
 
 export const router = createBrowserRouter([
   {
@@ -43,41 +45,40 @@ export const router = createBrowserRouter([
         path: "/auth/register",
         element: <Register></Register>,
       },
-      {
-        path: "/create-event",
-        element: (
-          <PrivateRoute>
-            <CreateEvent></CreateEvent>
-          </PrivateRoute>
-        ),
-      },
-      {
-        path: "/joined-event",
-        element: (
-          <PrivateRoute>
-            <JoinedEvent></JoinedEvent>
-          </PrivateRoute>
-        ),
-      },
-      {
-        path: "/manage-event",
-        element: (
-          <PrivateRoute>
-            <ManageEvents></ManageEvents>
-          </PrivateRoute>
-        ),
-      },
-      {
-        path: "/update-event/:id",
-        element: (
-          <PrivateRoute>
-            <UpdateEvent></UpdateEvent>
-          </PrivateRoute>
-        ),
-      },
+
       {
         path: "*",
         element: <NotFound></NotFound>,
+      },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: (
+      <PrivateRoute>
+        <DashboardLayout />
+      </PrivateRoute>
+    ),
+    children: [
+      {
+        index: true,
+        element: <Dashboard></Dashboard>,
+      },
+      {
+        path: "create-event",
+        element: <CreateEvent />,
+      },
+      {
+        path: "joined-event",
+        element: <JoinedEvent />,
+      },
+      {
+        path: "manage-event",
+        element: <ManageEvents />,
+      },
+      {
+        path: "update-event/:id",
+        element: <UpdateEvent />,
       },
     ],
   },
